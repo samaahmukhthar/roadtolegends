@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GO Fest 2026 · Raid Checklist</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0d1117; color: #e6edf3; font-family: system-ui, -apple-system, sans-serif; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0d1117; }
+    ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
+    textarea:focus { border-color: #388bfd !important; }
+    textarea { font-family: inherit; }
+    button { font-family: inherit; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useCallback } = React;
+
+    // ── Constants ──────────────────────────────────────────────────────────────
+    const TYPE_COLORS = {
+      Normal:   { bg:"#9FA19F", tx:"#fff" }, Fire:     { bg:"#E62829", tx:"#fff" },
+      Water:    { bg:"#2980EF", tx:"#fff" }, Electric: { bg:"#FAC000", tx:"#000" },
+      Grass:    { bg:"#3FA129", tx:"#fff" }, Ice:      { bg:"#3DCEF3", tx:"#000" },
+      Fighting: { bg:"#FF8000", tx:"#fff" }, Poison:   { bg:"#9141CB", tx:"#fff" },
+      Ground:   { bg:"#915121", tx:"#fff" }, Flying:   { bg:"#81B9EF", tx:"#000" },
+      Psychic:  { bg:"#EF4179", tx:"#fff" }, Bug:      { bg:"#91A119", tx:"#fff" },
+      Rock:     { bg:"#AFA981", tx:"#fff" }, Ghost:    { bg:"#704170", tx:"#fff" },
+      Dragon:   { bg:"#5060E1", tx:"#fff" }, Dark:     { bg:"#624D4E", tx:"#fff" },
+      Steel:    { bg:"#60A1B8", tx:"#fff" }, Fairy:    { bg:"#EF70EF", tx:"#fff" },
+    };
+    const TIER_COLORS = { "5-Star":"#F6C614", "Mega":"#B97FFF", "Primal":"#FF6B35", "Super Mega":"#FF3366" };
+    const BASE = "https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Pokemon/Addressable%20Assets/";
+    const i = (icon) => `${BASE}${icon}.icon.png`;
+
+    // ── Raid Data ──────────────────────────────────────────────────────────────
+    const SECTIONS = [
+      {
+        id:"mon", tab:"leadup", title:"Monday, July 6",
+        subtitle:"Nearly every Legendary returns for one day",
+        groups:[
+          { tier:"5-Star", bosses:[
+            {id:"m-articuno",    name:"Articuno",              types:["Ice","Flying"],       img:i("pm144")},
+            {id:"m-zapdos",      name:"Zapdos",                types:["Electric","Flying"],  img:i("pm145")},
+            {id:"m-moltres",     name:"Moltres",               types:["Fire","Flying"],      img:i("pm146")},
+            {id:"m-raikou",      name:"Raikou",                types:["Electric"],           img:i("pm243")},
+            {id:"m-entei",       name:"Entei",                 types:["Fire"],               img:i("pm244")},
+            {id:"m-suicune",     name:"Suicune",               types:["Water"],              img:i("pm245")},
+            {id:"m-lugia",       name:"Lugia",                 types:["Psychic","Flying"],   img:i("pm249")},
+            {id:"m-hooh",        name:"Ho-Oh",                 types:["Fire","Flying"],      img:i("pm250")},
+            {id:"m-regirock",    name:"Regirock",              types:["Rock"],               img:i("pm377")},
+            {id:"m-regice",      name:"Regice",                types:["Ice"],                img:i("pm378")},
+            {id:"m-registeel",   name:"Registeel",             types:["Steel"],              img:i("pm379")},
+            {id:"m-latias",      name:"Latias",                types:["Dragon","Psychic"],   img:i("pm380")},
+            {id:"m-latios",      name:"Latios",                types:["Dragon","Psychic"],   img:i("pm381")},
+            {id:"m-kyogre",      name:"Kyogre",                types:["Water"],              img:i("pm382")},
+            {id:"m-groudon",     name:"Groudon",               types:["Ground"],             img:i("pm383")},
+            {id:"m-rayquaza",    name:"Rayquaza",              types:["Dragon","Flying"],    img:i("pm384")},
+            {id:"m-deoxys-n",    name:"Deoxys (Normal)",       types:["Psychic"],            img:i("pm386")},
+            {id:"m-deoxys-a",    name:"Deoxys (Attack)",       types:["Psychic"],            img:i("pm386.fATTACK")},
+            {id:"m-deoxys-d",    name:"Deoxys (Defense)",      types:["Psychic"],            img:i("pm386.fDEFENSE")},
+            {id:"m-deoxys-s",    name:"Deoxys (Speed)",        types:["Psychic"],            img:i("pm386.fSPEED")},
+            {id:"m-uxie",        name:"Uxie",                  types:["Psychic"],            img:i("pm480"), regional:"Asia-Pacific"},
+            {id:"m-mesprit",     name:"Mesprit",               types:["Psychic"],            img:i("pm481"), regional:"Europe / ME / Africa / India"},
+            {id:"m-azelf",       name:"Azelf",                 types:["Psychic"],            img:i("pm482"), regional:"Americas & Greenland"},
+            {id:"m-dialga",      name:"Dialga",                types:["Steel","Dragon"],     img:i("pm483")},
+            {id:"m-palkia",      name:"Palkia",                types:["Water","Dragon"],     img:i("pm484")},
+            {id:"m-dialga-o",    name:"Dialga (Origin)",       types:["Steel","Dragon"],     img:i("pm483.fORIGIN")},
+            {id:"m-palkia-o",    name:"Palkia (Origin)",       types:["Water","Dragon"],     img:i("pm484.fORIGIN")},
+            {id:"m-heatran",     name:"Heatran",               types:["Fire","Steel"],       img:i("pm485")},
+            {id:"m-regigigas",   name:"Regigigas",             types:["Normal"],             img:i("pm486")},
+            {id:"m-giratina-a",  name:"Giratina (Altered)",    types:["Ghost","Dragon"],     img:i("pm487.fALTERED")},
+            {id:"m-giratina-o",  name:"Giratina (Origin)",     types:["Ghost","Dragon"],     img:i("pm487.fORIGIN")},
+            {id:"m-cresselia",   name:"Cresselia",             types:["Psychic"],            img:i("pm488")},
+            {id:"m-darkrai",     name:"Darkrai",               types:["Dark"],               img:i("pm491")},
+            {id:"m-cobalion",    name:"Cobalion",              types:["Steel","Fighting"],   img:i("pm638")},
+            {id:"m-terrakion",   name:"Terrakion",             types:["Rock","Fighting"],    img:i("pm639")},
+            {id:"m-virizion",    name:"Virizion",              types:["Grass","Fighting"],   img:i("pm640")},
+            {id:"m-torn-i",      name:"Tornadus (Incarnate)",  types:["Flying"],             img:i("pm641.fINCARNATE")},
+            {id:"m-torn-t",      name:"Tornadus (Therian)",    types:["Flying"],             img:i("pm641.fTHERIAN")},
+            {id:"m-thund-i",     name:"Thundurus (Incarnate)", types:["Electric","Flying"],  img:i("pm642.fINCARNATE")},
+            {id:"m-thund-t",     name:"Thundurus (Therian)",   types:["Electric","Flying"],  img:i("pm642.fTHERIAN")},
+            {id:"m-reshiram",    name:"Reshiram",              types:["Dragon","Fire"],      img:i("pm643")},
+            {id:"m-zekrom",      name:"Zekrom",                types:["Dragon","Electric"],  img:i("pm644")},
+            {id:"m-land-i",      name:"Landorus (Incarnate)",  types:["Ground","Flying"],    img:i("pm645.fINCARNATE")},
+            {id:"m-land-t",      name:"Landorus (Therian)",    types:["Ground","Flying"],    img:i("pm645.fTHERIAN")},
+            {id:"m-kyurem",      name:"Kyurem",                types:["Dragon","Ice"],       img:i("pm646")},
+            {id:"m-genesect",    name:"Genesect",              types:["Bug","Steel"],        img:i("pm649.fNORMAL")},
+            {id:"m-genesect-b",  name:"Genesect (Burn)",       types:["Bug","Steel"],        img:i("pm649.fBURN")},
+            {id:"m-genesect-c",  name:"Genesect (Chill)",      types:["Bug","Steel"],        img:i("pm649.fCHILL")},
+            {id:"m-genesect-d",  name:"Genesect (Douse)",      types:["Bug","Steel"],        img:i("pm649.fDOUSE")},
+            {id:"m-genesect-s",  name:"Genesect (Shock)",      types:["Bug","Steel"],        img:i("pm649.fSHOCK")},
+            {id:"m-xerneas",     name:"Xerneas",               types:["Fairy"],              img:i("pm716")},
+            {id:"m-yveltal",     name:"Yveltal",               types:["Dark","Flying"],      img:i("pm717")},
+            {id:"m-tapukoko",    name:"Tapu Koko",             types:["Electric","Fairy"],   img:i("pm785")},
+            {id:"m-tapulele",    name:"Tapu Lele",             types:["Psychic","Fairy"],    img:i("pm786")},
+            {id:"m-tapubulu",    name:"Tapu Bulu",             types:["Grass","Fairy"],      img:i("pm787")},
+            {id:"m-tapufini",    name:"Tapu Fini",             types:["Water","Fairy"],      img:i("pm788")},
+            {id:"m-solgaleo",    name:"Solgaleo",              types:["Psychic","Steel"],    img:i("pm791")},
+            {id:"m-lunala",      name:"Lunala",                types:["Psychic","Ghost"],    img:i("pm792")},
+            {id:"m-nihilego",    name:"Nihilego",              types:["Rock","Poison"],      img:i("pm793")},
+            {id:"m-buzzwole",    name:"Buzzwole",              types:["Bug","Fighting"],     img:i("pm794"), regional:"Americas & Greenland"},
+            {id:"m-pheromosa",   name:"Pheromosa",             types:["Bug","Fighting"],     img:i("pm795"), regional:"Europe / ME / Africa / India"},
+            {id:"m-xurkitree",   name:"Xurkitree",             types:["Electric"],           img:i("pm796"), regional:"Asia-Pacific"},
+            {id:"m-celesteela",  name:"Celesteela",            types:["Steel","Flying"],     img:i("pm797"), regional:"Southern Hemisphere"},
+            {id:"m-kartana",     name:"Kartana",               types:["Grass","Steel"],      img:i("pm798"), regional:"Northern Hemisphere"},
+            {id:"m-guzzlord",    name:"Guzzlord",              types:["Dark","Dragon"],      img:i("pm799")},
+            {id:"m-necrozma",    name:"Necrozma",              types:["Psychic"],            img:i("pm800")},
+            {id:"m-stakataka",   name:"Stakataka",             types:["Rock","Steel"],       img:i("pm805"), regional:"Eastern Hemisphere"},
+            {id:"m-blacephalon", name:"Blacephalon",           types:["Fire","Ghost"],       img:i("pm806"), regional:"Western Hemisphere"},
+            {id:"m-zacian-h",    name:"Zacian (Hero)",         types:["Fairy"],              img:i("pm888.fHERO")},
+            {id:"m-zamazenta-h", name:"Zamazenta (Hero)",      types:["Fighting"],           img:i("pm889.fHERO")},
+            {id:"m-regieleki",   name:"Regieleki",             types:["Electric"],           img:i("pm894")},
+            {id:"m-regidrago",   name:"Regidrago",             types:["Dragon"],             img:i("pm895")},
+            {id:"m-enam-i",      name:"Enamorus (Incarnate)",  types:["Fairy","Flying"],     img:i("pm905.fINCARNATE")},
+            {id:"m-enam-t",      name:"Enamorus (Therian)",    types:["Fairy","Flying"],     img:i("pm905.fTHERIAN")},
+          ]},
+          { tier:"Mega", bosses:[
+            {id:"m-mega-salm",   name:"Mega Salamence",        types:["Dragon","Flying"],    img:i("pm373.fMEGA")},
+          ]},
+        ],
+      },
+      {
+        id:"tue", tab:"leadup", title:"Tuesday, July 7", subtitle:"",
+        groups:[
+          { tier:"5-Star", bosses:[
+            {id:"t-kyurem-w",    name:"Kyurem (White)",        types:["Dragon","Ice"],       img:i("pm646.fWHITE")},
+            {id:"t-zekrom",      name:"Zekrom",                types:["Dragon","Electric"],  img:i("pm644")},
+            {id:"t-necrozma-dw", name:"Necrozma (Dawn Wings)", types:["Psychic","Ghost"],    img:i("pm800.fDAWN_WINGS")},
+          ]},
+          { tier:"Mega", bosses:[
+            {id:"t-mega-tyran",  name:"Mega Tyranitar",        types:["Rock","Dark"],        img:i("pm248.fMEGA")},
+          ]},
+        ],
+      },
+      {
+        id:"wed", tab:"leadup", title:"Wednesday, July 8", subtitle:"",
+        groups:[
+          { tier:"5-Star", bosses:[
+            {id:"w-kyurem-b",    name:"Kyurem (Black)",        types:["Dragon","Ice"],       img:i("pm646.fBLACK")},
+            {id:"w-reshiram",    name:"Reshiram",              types:["Dragon","Fire"],      img:i("pm643")},
+            {id:"w-necrozma-dm", name:"Necrozma (Dusk Mane)",  types:["Psychic","Steel"],    img:i("pm800.fDUSK_MANE")},
+          ]},
+          { tier:"Mega", bosses:[
+            {id:"w-mega-gard",   name:"Mega Gardevoir",        types:["Psychic","Fairy"],    img:i("pm282.fMEGA")},
+          ]},
+        ],
+      },
+      {
+        id:"thu", tab:"leadup", title:"Thursday, July 9", subtitle:"",
+        groups:[
+          { tier:"5-Star", bosses:[
+            {id:"th-zacian-cs",  name:"Zacian (Crowned Sword)", types:["Fairy","Steel"],    img:i("pm888.fCROWNED_SWORD")},
+            {id:"th-zam-cs",     name:"Zamazenta (Crowned)",    types:["Fighting","Steel"],  img:i("pm889.fCROWNED_SHIELD")},
+          ]},
+          { tier:"Mega", bosses:[
+            {id:"th-mega-geng",  name:"Mega Gengar",           types:["Ghost","Poison"],     img:i("pm94.fMEGA")},
+          ]},
+        ],
+      },
+      {
+        id:"fri", tab:"leadup", title:"Friday, July 10", subtitle:"",
+        groups:[
+          { tier:"5-Star", bosses:[
+            {id:"f-dialga-o",    name:"Dialga (Origin)",       types:["Steel","Dragon"],     img:i("pm483.fORIGIN")},
+            {id:"f-palkia-o",    name:"Palkia (Origin)",       types:["Water","Dragon"],     img:i("pm484.fORIGIN")},
+          ]},
+          { tier:"Primal", bosses:[
+            {id:"f-pkyo",        name:"Primal Kyogre",         types:["Water"],              img:i("pm382.fPRIMAL")},
+            {id:"f-pgrou",       name:"Primal Groudon",        types:["Ground","Fire"],      img:i("pm383.fPRIMAL")},
+          ]},
+        ],
+      },
+      {
+        id:"sat-super", tab:"saturday", title:"Super Mega Raid", subtitle:"All day Saturday · Jul 11",
+        groups:[
+          { tier:"Super Mega", bosses:[
+            {id:"ss-mewtwox",    name:"Mega Mewtwo X",         types:["Psychic","Fighting"], img:i("pm150.fMEGA_X")},
+          ]},
+        ],
+      },
+      {
+        id:"sat-storm", tab:"saturday", title:"Stormfire Peaks", subtitle:"Saturday · 10:00 AM – 1:00 PM · Ice / Electric / Fire",
+        groups:[
+          { tier:"Mega", bosses:[
+            {id:"sf-mega-amph",  name:"Mega Ampharos",         types:["Electric","Dragon"],  img:i("pm181.fMEGA")},
+            {id:"sf-mega-blaz",  name:"Mega Blaziken",         types:["Fire","Fighting"],    img:i("pm257.fMEGA")},
+            {id:"sf-mega-abom",  name:"Mega Abomasnow",        types:["Grass","Ice"],        img:i("pm460.fMEGA")},
+          ]},
+          { tier:"5-Star", bosses:[
+            {id:"sf-articuno",   name:"Articuno",              types:["Ice","Flying"],       img:i("pm144")},
+            {id:"sf-zapdos",     name:"Zapdos",                types:["Electric","Flying"],  img:i("pm145")},
+            {id:"sf-moltres",    name:"Moltres",               types:["Fire","Flying"],      img:i("pm146")},
+            {id:"sf-raikou",     name:"Raikou",                types:["Electric"],           img:i("pm243")},
+            {id:"sf-entei",      name:"Entei",                 types:["Fire"],               img:i("pm244")},
+            {id:"sf-suicune",    name:"Suicune",               types:["Water"],              img:i("pm245")},
+            {id:"sf-lugia",      name:"Lugia",                 types:["Psychic","Flying"],   img:i("pm249")},
+            {id:"sf-hooh",       name:"Ho-Oh",                 types:["Fire","Flying"],      img:i("pm250")},
+          ]},
+        ],
+      },
+      {
+        id:"sat-astral", tab:"saturday", title:"Astral Tides", subtitle:"Saturday · 1:00 PM – 4:00 PM · Psychic / Ghost / Water",
+        groups:[
+          { tier:"Mega", bosses:[
+            {id:"at-mega-alak",  name:"Mega Alakazam",         types:["Psychic"],            img:i("pm65.fMEGA")},
+            {id:"at-mega-geng",  name:"Mega Gengar",           types:["Ghost","Poison"],     img:i("pm94.fMEGA")},
+            {id:"at-mega-swam",  name:"Mega Swampert",         types:["Water","Ground"],     img:i("pm260.fMEGA")},
+          ]},
+          { tier:"5-Star", bosses:[
+            {id:"at-uxie",       name:"Uxie",                  types:["Psychic"],            img:i("pm480"), regional:"Asia-Pacific"},
+            {id:"at-mesprit",    name:"Mesprit",               types:["Psychic"],            img:i("pm481"), regional:"Europe / ME / Africa / India"},
+            {id:"at-azelf",      name:"Azelf",                 types:["Psychic"],            img:i("pm482"), regional:"Americas & Greenland"},
+            {id:"at-dialga",     name:"Dialga",                types:["Steel","Dragon"],     img:i("pm483")},
+            {id:"at-palkia",     name:"Palkia",                types:["Water","Dragon"],     img:i("pm484")},
+            {id:"at-gir-a",      name:"Giratina (Altered)",    types:["Ghost","Dragon"],     img:i("pm487.fALTERED")},
+            {id:"at-gir-o",      name:"Giratina (Origin)",     types:["Ghost","Dragon"],     img:i("pm487.fORIGIN")},
+            {id:"at-xerneas",    name:"Xerneas",               types:["Fairy"],              img:i("pm716")},
+            {id:"at-yveltal",    name:"Yveltal",               types:["Dark","Flying"],      img:i("pm717")},
+            {id:"at-solgaleo",   name:"Solgaleo",              types:["Psychic","Steel"],    img:i("pm791")},
+            {id:"at-lunala",     name:"Lunala",                types:["Psychic","Ghost"],    img:i("pm792")},
+          ]},
+        ],
+      },
+      {
+        id:"sat-dragon", tab:"saturday", title:"Dragonflight Summit", subtitle:"Saturday · 4:00 PM – 7:00 PM · Flying / Rock / Dragon",
+        groups:[
+          { tier:"Mega", bosses:[
+            {id:"ds-mega-pidg",  name:"Mega Pidgeot",          types:["Normal","Flying"],    img:i("pm18.fMEGA")},
+            {id:"ds-mega-aero",  name:"Mega Aerodactyl",       types:["Rock","Flying"],      img:i("pm142.fMEGA")},
+            {id:"ds-mega-salm",  name:"Mega Salamence",        types:["Dragon","Flying"],    img:i("pm373.fMEGA")},
+          ]},
+          { tier:"5-Star", bosses:[
+            {id:"ds-kyogre",     name:"Kyogre",                types:["Water"],              img:i("pm382")},
+            {id:"ds-groudon",    name:"Groudon",               types:["Ground"],             img:i("pm383")},
+            {id:"ds-rayquaza",   name:"Rayquaza",              types:["Dragon","Flying"],    img:i("pm384")},
+            {id:"ds-reshiram",   name:"Reshiram",              types:["Dragon","Fire"],      img:i("pm643")},
+            {id:"ds-zekrom",     name:"Zekrom",                types:["Dragon","Electric"],  img:i("pm644")},
+            {id:"ds-kyurem",     name:"Kyurem",                types:["Dragon","Ice"],       img:i("pm646")},
+          ]},
+        ],
+      },
+      {
+        id:"sun-super", tab:"sunday", title:"Super Mega Raid", subtitle:"All day Sunday · Jul 12",
+        groups:[
+          { tier:"Super Mega", bosses:[
+            {id:"su-mewtwoy",    name:"Mega Mewtwo Y",         types:["Psychic"],            img:i("pm150.fMEGA_Y")},
+          ]},
+        ],
+      },
+      {
+        id:"sun-earth", tab:"sunday", title:"Earthforged Domain", subtitle:"Sunday · 10:00 AM – 1:00 PM · Ground / Steel / Normal",
+        groups:[
+          { tier:"Mega", bosses:[
+            {id:"ed-mega-meta",  name:"Mega Metagross",        types:["Steel","Psychic"],    img:i("pm376.fMEGA")},
+            {id:"ed-mega-garc",  name:"Mega Garchomp",         types:["Dragon","Ground"],    img:i("pm445.fMEGA")},
+            {id:"ed-mega-audi",  name:"Mega Audino",           types:["Normal","Fairy"],     img:i("pm531.fMEGA")},
+          ]},
+          { tier:"5-Star", bosses:[
+            {id:"ed-regirock",   name:"Regirock",              types:["Rock"],               img:i("pm377")},
+            {id:"ed-regice",     name:"Regice",                types:["Ice"],                img:i("pm378")},
+            {id:"ed-registeel",  name:"Registeel",             types:["Steel"],              img:i("pm379")},
+            {id:"ed-dialga-o",   name:"Dialga (Origin)",       types:["Steel","Dragon"],     img:i("pm483.fORIGIN")},
+            {id:"ed-palkia-o",   name:"Palkia (Origin)",       types:["Water","Dragon"],     img:i("pm484.fORIGIN")},
+            {id:"ed-heatran",    name:"Heatran",               types:["Fire","Steel"],       img:i("pm485")},
+            {id:"ed-regigigas",  name:"Regigigas",             types:["Normal"],             img:i("pm486")},
+            {id:"ed-torn-i",     name:"Tornadus (Incarnate)",  types:["Flying"],             img:i("pm641.fINCARNATE")},
+            {id:"ed-torn-t",     name:"Tornadus (Therian)",    types:["Flying"],             img:i("pm641.fTHERIAN")},
+            {id:"ed-thund-i",    name:"Thundurus (Incarnate)", types:["Electric","Flying"],  img:i("pm642.fINCARNATE")},
+            {id:"ed-thund-t",    name:"Thundurus (Therian)",   types:["Electric","Flying"],  img:i("pm642.fTHERIAN")},
+            {id:"ed-land-i",     name:"Landorus (Incarnate)",  types:["Ground","Flying"],    img:i("pm645.fINCARNATE")},
+            {id:"ed-land-t",     name:"Landorus (Therian)",    types:["Ground","Flying"],    img:i("pm645.fTHERIAN")},
+            {id:"ed-enam-i",     name:"Enamorus (Incarnate)",  types:["Fairy","Flying"],     img:i("pm905.fINCARNATE")},
+            {id:"ed-enam-t",     name:"Enamorus (Therian)",    types:["Fairy","Flying"],     img:i("pm905.fTHERIAN")},
+            {id:"ed-regieleki",  name:"Regieleki",             types:["Electric"],           img:i("pm894")},
+            {id:"ed-regidrago",  name:"Regidrago",             types:["Dragon"],             img:i("pm895")},
+          ]},
+        ],
+      },
+      {
+        id:"sun-verdant", tab:"sunday", title:"Verdant Anomaly", subtitle:"Sunday · 1:00 PM – 4:00 PM · Poison / Bug / Grass",
+        groups:[
+          { tier:"Mega", bosses:[
+            {id:"va-mega-beed",  name:"Mega Beedrill",         types:["Bug","Poison"],       img:i("pm15.fMEGA")},
+            {id:"va-mega-pins",  name:"Mega Pinsir",           types:["Bug","Flying"],       img:i("pm127.fMEGA")},
+            {id:"va-mega-scep",  name:"Mega Sceptile",         types:["Grass","Dragon"],     img:i("pm254.fMEGA")},
+          ]},
+          { tier:"5-Star", bosses:[
+            {id:"va-deoxys-n",   name:"Deoxys (Normal)",       types:["Psychic"],            img:i("pm386")},
+            {id:"va-deoxys-a",   name:"Deoxys (Attack)",       types:["Psychic"],            img:i("pm386.fATTACK")},
+            {id:"va-deoxys-d",   name:"Deoxys (Defense)",      types:["Psychic"],            img:i("pm386.fDEFENSE")},
+            {id:"va-deoxys-s",   name:"Deoxys (Speed)",        types:["Psychic"],            img:i("pm386.fSPEED")},
+            {id:"va-genesect",   name:"Genesect",              types:["Bug","Steel"],        img:i("pm649.fNORMAL")},
+            {id:"va-genes-d",    name:"Genesect (Douse)",      types:["Bug","Steel"],        img:i("pm649.fDOUSE")},
+            {id:"va-genes-s",    name:"Genesect (Shock)",      types:["Bug","Steel"],        img:i("pm649.fSHOCK")},
+            {id:"va-genes-b",    name:"Genesect (Burn)",       types:["Bug","Steel"],        img:i("pm649.fBURN")},
+            {id:"va-genes-c",    name:"Genesect (Chill)",      types:["Bug","Steel"],        img:i("pm649.fCHILL")},
+            {id:"va-nihilego",   name:"Nihilego",              types:["Rock","Poison"],      img:i("pm793")},
+            {id:"va-buzzwole",   name:"Buzzwole",              types:["Bug","Fighting"],     img:i("pm794"), regional:"Americas & Greenland"},
+            {id:"va-pheromosa",  name:"Pheromosa",             types:["Bug","Fighting"],     img:i("pm795"), regional:"Europe / ME / Africa / India"},
+            {id:"va-xurkitree",  name:"Xurkitree",             types:["Electric"],           img:i("pm796"), regional:"Asia-Pacific"},
+            {id:"va-celesteela", name:"Celesteela",            types:["Steel","Flying"],     img:i("pm797"), regional:"Southern Hemisphere"},
+            {id:"va-kartana",    name:"Kartana",               types:["Grass","Steel"],      img:i("pm798"), regional:"Northern Hemisphere"},
+            {id:"va-guzzlord",   name:"Guzzlord",              types:["Dark","Dragon"],      img:i("pm799")},
+            {id:"va-necrozma",   name:"Necrozma",              types:["Psychic"],            img:i("pm800")},
+            {id:"va-stakataka",  name:"Stakataka",             types:["Rock","Steel"],       img:i("pm805"), regional:"Eastern Hemisphere"},
+            {id:"va-blacepha",   name:"Blacephalon",           types:["Fire","Ghost"],       img:i("pm806"), regional:"Western Hemisphere"},
+            {id:"va-tapukoko",   name:"Tapu Koko",             types:["Electric","Fairy"],   img:i("pm785")},
+            {id:"va-tapulele",   name:"Tapu Lele",             types:["Psychic","Fairy"],    img:i("pm786")},
+            {id:"va-tapubulu",   name:"Tapu Bulu",             types:["Grass","Fairy"],      img:i("pm787")},
+            {id:"va-tapufini",   name:"Tapu Fini",             types:["Water","Fairy"],      img:i("pm788")},
+          ]},
+        ],
+      },
+      {
+        id:"sun-twilight", tab:"sunday", title:"Twilight Battlefield", subtitle:"Sunday · 4:00 PM – 7:00 PM · Dark / Fairy / Fighting",
+        groups:[
+          { tier:"Mega", bosses:[
+            {id:"tb-mega-tyran", name:"Mega Tyranitar",        types:["Rock","Dark"],        img:i("pm248.fMEGA")},
+            {id:"tb-mega-gard",  name:"Mega Gardevoir",        types:["Psychic","Fairy"],    img:i("pm282.fMEGA")},
+            {id:"tb-mega-luca",  name:"Mega Lucario",          types:["Fighting","Steel"],   img:i("pm448.fMEGA")},
+          ]},
+          { tier:"5-Star", bosses:[
+            {id:"tb-latias",     name:"Latias",                types:["Dragon","Psychic"],   img:i("pm380")},
+            {id:"tb-latios",     name:"Latios",                types:["Dragon","Psychic"],   img:i("pm381")},
+            {id:"tb-cresselia",  name:"Cresselia",             types:["Psychic"],            img:i("pm488")},
+            {id:"tb-darkrai",    name:"Darkrai",               types:["Dark"],               img:i("pm491")},
+            {id:"tb-cobalion",   name:"Cobalion",              types:["Steel","Fighting"],   img:i("pm638")},
+            {id:"tb-terrakion",  name:"Terrakion",             types:["Rock","Fighting"],    img:i("pm639")},
+            {id:"tb-virizion",   name:"Virizion",              types:["Grass","Fighting"],   img:i("pm640")},
+            {id:"tb-zacian-h",   name:"Zacian (Hero)",         types:["Fairy"],              img:i("pm888.fHERO")},
+            {id:"tb-zamazenta-h",name:"Zamazenta (Hero)",      types:["Fighting"],           img:i("pm889.fHERO")},
+          ]},
+        ],
+      },
+    ];
+
+    const ALL_BOSSES = SECTIONS.flatMap(s => s.groups.flatMap(g => g.bosses));
+    const LS_KEY = "gf26";
+
+    function loadState() {
+      try { return JSON.parse(localStorage.getItem(LS_KEY) || "{}"); } catch { return {}; }
+    }
+    function saveState(s) {
+      try { localStorage.setItem(LS_KEY, JSON.stringify(s)); } catch {}
+    }
+
+    // ── Sub-components ─────────────────────────────────────────────────────────
+    function TypeBadge({ type }) {
+      const c = TYPE_COLORS[type] || { bg:"#555", tx:"#fff" };
+      return (
+        <span style={{ fontSize:9, fontWeight:700, padding:"2px 5px", borderRadius:3,
+          background:c.bg, color:c.tx, textTransform:"uppercase", letterSpacing:.5, lineHeight:1.2 }}>
+          {type}
+        </span>
+      );
+    }
+
+    function MiniCheck({ checked, onChange, label, color="#2ea043" }) {
+      return (
+        <label style={{ display:"flex", alignItems:"center", gap:5, cursor:"pointer", userSelect:"none" }}>
+          <div onClick={onChange} style={{
+            width:16, height:16, borderRadius:3, flexShrink:0, cursor:"pointer",
+            border:`2px solid ${checked ? color : "#30363d"}`,
+            background: checked ? color : "transparent",
+            display:"flex", alignItems:"center", justifyContent:"center", transition:"all .15s",
+          }}>
+            {checked && <span style={{ color:"#fff", fontSize:10, lineHeight:1, fontWeight:700 }}>✓</span>}
+          </div>
+          <span style={{ fontSize:11, color: checked ? color : "#555", fontWeight: checked ? 600 : 400 }}>{label}</span>
+        </label>
+      );
+    }
+
+    function BossRow({ boss, st, onCheck, onUnavail, onHundo, onShiny, onNote }) {
+      const [expanded, setExpanded] = useState(false);
+      const done = !!st.checked;
+      const na   = !!st.unavailable;
+      const hasNote = st.note && st.note.trim().length > 0;
+      const hasActivity = st.hundo || st.shiny || hasNote;
+
+      return (
+        <div style={{ borderBottom:"1px solid #1c2030" }}>
+          {/* Main row */}
+          <div style={{ display:"flex", alignItems:"center", padding:"7px 12px",
+            background: na ? "#080b10" : "#0d1117", gap:9, opacity: na ? .5 : 1, transition:"opacity .2s" }}>
+
+            {/* Checkbox */}
+            <div onClick={() => !na && onCheck()} style={{
+              width:22, height:22, borderRadius:5, flexShrink:0,
+              border: na ? "2px solid #252525" : `2px solid ${done ? "#2ea043" : "#2d333b"}`,
+              background: done && !na ? "#2ea043" : "transparent",
+              display:"flex", alignItems:"center", justifyContent:"center",
+              cursor: na ? "default" : "pointer", transition:"all .15s",
+            }}>
+              {na  ? <span style={{ fontSize:12 }}>🚫</span>
+               : done ? <span style={{ color:"#fff", fontSize:13, lineHeight:1 }}>✓</span>
+               : null}
+            </div>
+
+            {/* Sprite */}
+            <div style={{ width:46, height:46, flexShrink:0, display:"flex", alignItems:"center",
+              justifyContent:"center", position:"relative" }}>
+              <img src={boss.img} alt={boss.name} width={46} height={46}
+                style={{ objectFit:"contain", filter:(done||na) ? "grayscale(.75) brightness(.55)" : "none",
+                  transition:"filter .2s" }}
+                onError={e => { e.target.style.display="none"; }}
+              />
+              {st.shiny && !na && <span style={{ position:"absolute", bottom:-2, right:-3, fontSize:12 }}>✨</span>}
+              {st.hundo && !na && (
+                <div style={{ position:"absolute", top:-3, right:-3, width:15, height:15, borderRadius:"50%",
+                  background:"#2ea043", display:"flex", alignItems:"center", justifyContent:"center" }}>
+                  <span style={{ fontSize:8, color:"#fff", fontWeight:800, lineHeight:1 }}>IV</span>
+                </div>
+              )}
+            </div>
+
+            {/* Name + types */}
+            <div style={{ flex:1, minWidth:0 }}>
+              <div style={{ fontSize:13, fontWeight:500, lineHeight:1.3,
+                color: done||na ? "#444" : "#e6edf3",
+                textDecoration: done && !na ? "line-through" : "none",
+                overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>
+                {boss.name}
+              </div>
+              <div style={{ display:"flex", gap:3, marginTop:3, flexWrap:"wrap" }}>
+                {boss.types.map(t => <TypeBadge key={t} type={t} />)}
+                {boss.regional && (
+                  <span style={{ fontSize:9, fontWeight:600, padding:"2px 5px", borderRadius:3,
+                    background:"#161e2e", color:"#5b84c4", lineHeight:1.2 }}>
+                    🌍 {boss.regional}
+                  </span>
+                )}
+                {hasNote && !expanded && (
+                  <span style={{ fontSize:9, padding:"2px 4px", borderRadius:3,
+                    background:"#1a1400", color:"#a07800", lineHeight:1.2 }}>📝</span>
+                )}
+              </div>
+            </div>
+
+            {/* Buttons */}
+            <div style={{ display:"flex", gap:5, flexShrink:0, alignItems:"center" }}>
+              <button onClick={onUnavail} style={{
+                padding:"3px 7px", borderRadius:5, cursor:"pointer", fontSize:10, fontWeight:600,
+                border:`1px solid ${na ? "#b8960a" : "#2d333b"}`,
+                background: na ? "#1a130010" : "transparent",
+                color: na ? "#F6C614" : "#444", transition:"all .15s",
+              }}>{na ? "✕ N/A" : "N/A"}</button>
+              <button onClick={() => setExpanded(e => !e)} style={{
+                padding:"3px 8px", borderRadius:5, cursor:"pointer", fontSize:11,
+                border:`1px solid ${expanded || hasActivity ? "#2d3a55" : "#1c2030"}`,
+                background: expanded ? "#111825" : "transparent",
+                color: hasActivity ? "#6d9cf8" : "#333", transition:"all .15s",
+              }}>{expanded ? "▲" : "▼"}</button>
+            </div>
+          </div>
+
+          {/* Expanded panel */}
+          {expanded && (
+            <div style={{ background:"#090c13", borderTop:"1px solid #1c2030", padding:"10px 12px 12px" }}>
+              <div style={{ display:"flex", gap:12, alignItems:"flex-start" }}>
+                {/* Large sprite */}
+                <div style={{ flexShrink:0, width:70, height:70, background:"#0d1117", borderRadius:8,
+                  display:"flex", alignItems:"center", justifyContent:"center", border:"1px solid #1c2030" }}>
+                  <img src={boss.img} alt={boss.name} width={62} height={62}
+                    style={{ objectFit:"contain" }}
+                    onError={e => { e.target.style.display="none"; }}
+                  />
+                </div>
+                {/* Notes + checks */}
+                <div style={{ flex:1, minWidth:0 }}>
+                  <div style={{ fontSize:10, fontWeight:700, color:"#3d4a5c", textTransform:"uppercase",
+                    letterSpacing:.8, marginBottom:5 }}>Notes</div>
+                  <textarea
+                    value={st.note || ""}
+                    onChange={e => onNote(e.target.value)}
+                    placeholder='e.g. "Skip today — available again Saturday in Astral Tides"'
+                    rows={2}
+                    style={{ width:"100%", background:"#0d1117", border:"1px solid #21262d",
+                      borderRadius:6, color:"#c9d1d9", fontSize:12, padding:"6px 9px",
+                      resize:"vertical", outline:"none", lineHeight:1.5 }}
+                  />
+                  <div style={{ display:"flex", gap:18, marginTop:8 }}>
+                    <MiniCheck checked={!!st.hundo} onChange={onHundo} label="Got 100 IV" color="#2ea043" />
+                    <MiniCheck checked={!!st.shiny} onChange={onShiny} label="Got Shiny ✨" color="#c8920a" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // ── Main App ───────────────────────────────────────────────────────────────
+    function App() {
+      const [state,     setState]     = useState(() => loadState());
+      const [activeTab, setActiveTab] = useState("all");
+      const [collapsed, setCollapsed] = useState({});
+      const [hideDone,  setHideDone]  = useState(false);
+      const [hideNA,    setHideNA]    = useState(false);
+
+      // Persist on every state change
+      useEffect(() => { saveState(state); }, [state]);
+
+      // Per-boss state helpers — all writes go through one setState
+      const set = useCallback((id, key, val) => {
+        setState(prev => ({ ...prev, [id]: { ...(prev[id] || {}), [key]: val } }));
+      }, []);
+      const toggle = useCallback((id, key) => {
+        setState(prev => {
+          const cur = prev[id] || {};
+          return { ...prev, [id]: { ...cur, [key]: !cur[key] } };
+        });
+      }, []);
+      const toggleCheck = (id) => {
+        setState(prev => {
+          const cur = prev[id] || {};
+          if (cur.unavailable) return prev; // can't check an N/A row
+          return { ...prev, [id]: { ...cur, checked: !cur.checked } };
+        });
+      };
+      const toggleUnavail = (id) => {
+        setState(prev => {
+          const cur = prev[id] || {};
+          const nowNA = !cur.unavailable;
+          return { ...prev, [id]: { ...cur, unavailable: nowNA, checked: nowNA ? false : cur.checked } };
+        });
+      };
+
+      // Stats
+      const naCount    = ALL_BOSSES.filter(b => state[b.id]?.unavailable).length;
+      const doneCount  = ALL_BOSSES.filter(b => state[b.id]?.checked).length;
+      const hundoCount = ALL_BOSSES.filter(b => state[b.id]?.hundo).length;
+      const shinyCount = ALL_BOSSES.filter(b => state[b.id]?.shiny).length;
+      const available  = ALL_BOSSES.length - naCount;
+      const pct        = available > 0 ? Math.round((doneCount / available) * 100) : 0;
+
+      const visibleSections = SECTIONS.filter(s => activeTab === "all" || s.tab === activeTab);
+      const TABS = [
+        { id:"all",      label:"All" },
+        { id:"leadup",   label:"📅 Lead-up" },
+        { id:"saturday", label:"⭐ Saturday" },
+        { id:"sunday",   label:"🌙 Sunday" },
+      ];
+
+      return (
+        <div style={{ minHeight:"100vh", background:"#0d1117", color:"#e6edf3",
+          fontFamily:"system-ui,-apple-system,sans-serif" }}>
+
+          {/* Header */}
+          <div style={{ background:"linear-gradient(160deg,#0e1f40,#180f38)",
+            padding:"16px 14px 13px", borderBottom:"1px solid #1a2540", position:"sticky", top:0, zIndex:10 }}>
+            <h1 style={{ fontSize:17, fontWeight:700, color:"#F6C614", letterSpacing:.3, marginBottom:2 }}>
+              🎉 GO Fest 2026 · Raid Checklist
+            </h1>
+            <p style={{ fontSize:10, color:"#5a7299", marginBottom:10 }}>
+              Jul 6–12 · Tap ▼ on any row for notes, shiny &amp; 100 IV tracking
+            </p>
+            {/* Progress bar */}
+            <div style={{ display:"flex", justifyContent:"space-between", fontSize:10, color:"#5a7299", marginBottom:4 }}>
+              <span>
+                <span style={{ color:"#3fb950", fontWeight:700 }}>{doneCount}</span> raided ·{" "}
+                <span style={{ color:"#F6C614", fontWeight:700 }}>{pct}%</span> of available
+              </span>
+              <span>💯 {hundoCount} · ✨ {shinyCount} · 🚫 {naCount}</span>
+            </div>
+            <div style={{ background:"#0d1522", borderRadius:6, height:6, overflow:"hidden" }}>
+              <div style={{ background:"linear-gradient(90deg,#238636,#3fb950)",
+                width:`${pct}%`, height:"100%", transition:"width .4s", borderRadius:6 }} />
+            </div>
+          </div>
+
+          {/* Tab + filter bar */}
+          <div style={{ background:"#0d1117", borderBottom:"1px solid #1c2030",
+            display:"flex", alignItems:"center", overflowX:"auto", position:"sticky", top:88, zIndex:9 }}>
+            {TABS.map(tab => (
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
+                padding:"10px 13px", background:"none", border:"none", cursor:"pointer",
+                color: activeTab===tab.id ? "#F6C614" : "#6b7280",
+                borderBottom:`2px solid ${activeTab===tab.id ? "#F6C614" : "transparent"}`,
+                fontSize:12, fontWeight: activeTab===tab.id ? 700 : 400, whiteSpace:"nowrap",
+              }}>{tab.label}</button>
+            ))}
+            <div style={{ marginLeft:"auto", display:"flex", gap:5, padding:"0 10px" }}>
+              {[
+                { active:hideDone, label:"Hide ✓", toggle:() => setHideDone(p=>!p) },
+                { active:hideNA,   label:"Hide N/A", toggle:() => setHideNA(p=>!p) },
+              ].map((f,k) => (
+                <button key={k} onClick={f.toggle} style={{
+                  padding:"4px 8px", borderRadius:10, cursor:"pointer", fontSize:10, fontWeight:600,
+                  border:`1px solid ${f.active ? "#b8960a" : "#1c2030"}`,
+                  background: f.active ? "#1a130020" : "transparent",
+                  color: f.active ? "#F6C614" : "#444", whiteSpace:"nowrap",
+                }}>{f.label}</button>
+              ))}
+            </div>
+          </div>
+
+          {/* Sections */}
+          <div style={{ padding:"10px 10px 48px", maxWidth:700, margin:"0 auto" }}>
+            {visibleSections.map(section => {
+              const secBosses = section.groups.flatMap(g => g.bosses);
+              const secNA     = secBosses.filter(b => state[b.id]?.unavailable).length;
+              const secDone   = secBosses.filter(b => state[b.id]?.checked).length;
+              const secAvail  = secBosses.length - secNA;
+              const isOpen    = !collapsed[section.id];
+              const allDone   = secAvail > 0 && secDone === secAvail;
+
+              return (
+                <div key={section.id} style={{ marginBottom:10, borderRadius:8,
+                  overflow:"hidden", border:"1px solid #1c2030" }}>
+                  {/* Section header */}
+                  <div onClick={() => setCollapsed(p => ({ ...p, [section.id]: !p[section.id] }))}
+                    style={{ background:"#111722", padding:"10px 14px", cursor:"pointer",
+                      display:"flex", alignItems:"center", justifyContent:"space-between", userSelect:"none" }}>
+                    <div>
+                      <div style={{ fontSize:13, fontWeight:700, color: allDone ? "#3fb950" : "#c9d1d9" }}>
+                        {section.title}
+                      </div>
+                      {section.subtitle && (
+                        <div style={{ fontSize:10, color:"#4a6080", marginTop:2 }}>{section.subtitle}</div>
+                      )}
+                    </div>
+                    <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+                      <span style={{ fontSize:11, fontWeight:600, color: allDone ? "#3fb950" : "#444" }}>
+                        {secDone}/{secAvail}
+                      </span>
+                      <span style={{ color:"#333", fontSize:10 }}>{isOpen ? "▼" : "▶"}</span>
+                    </div>
+                  </div>
+
+                  {/* Groups */}
+                  {isOpen && section.groups.map(group => {
+                    const rows = group.bosses.filter(b => {
+                      if (hideDone && state[b.id]?.checked && !state[b.id]?.unavailable) return false;
+                      if (hideNA   && state[b.id]?.unavailable) return false;
+                      return true;
+                    });
+                    if (!rows.length) return null;
+                    const tc = TIER_COLORS[group.tier] || "#555";
+                    return (
+                      <div key={group.tier}>
+                        <div style={{ padding:"3px 14px", fontSize:9, fontWeight:800, letterSpacing:1.3,
+                          color:tc, background:"#070a0f", textTransform:"uppercase", borderTop:"1px solid #1c2030" }}>
+                          {group.tier}
+                        </div>
+                        {rows.map(boss => (
+                          <BossRow
+                            key={boss.id}
+                            boss={boss}
+                            st={state[boss.id] || {}}
+                            onCheck={()    => toggleCheck(boss.id)}
+                            onUnavail={()  => toggleUnavail(boss.id)}
+                            onHundo={()    => toggle(boss.id, "hundo")}
+                            onShiny={()    => toggle(boss.id, "shiny")}
+                            onNote={v      => set(boss.id, "note", v)}
+                          />
+                        ))}
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
+
+            {/* Reset */}
+            <div style={{ textAlign:"center", marginTop:20 }}>
+              <button
+                onClick={() => { if (window.confirm("Reset all progress? This cannot be undone.")) setState({}); }}
+                style={{ padding:"7px 18px", borderRadius:6, border:"1px solid #21262d",
+                  background:"transparent", color:"#444", cursor:"pointer", fontSize:11 }}>
+                Reset all progress
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
