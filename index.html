@@ -34,7 +34,7 @@
       Dragon:   { bg:"#5060E1", tx:"#fff" }, Dark:     { bg:"#624D4E", tx:"#fff" },
       Steel:    { bg:"#60A1B8", tx:"#fff" }, Fairy:    { bg:"#EF70EF", tx:"#fff" },
     };
-    const TIER_COLORS = { "1-Star":"#aaa", "5-Star":"#F6C614", "Mega":"#B97FFF", "Primal":"#FF6B35", "Super Mega":"#FF3366" };
+    const TIER_COLORS = { "1-Star":"#aaa", "5-Star":"#F6C614", "Mega":"#B97FFF", "Primal":"#FF6B35", "Super Mega":"#FF3366", "3-Star":"#E8A040", "Max Battle":"#E0218A" };
     const PM = "https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Pokemon/Addressable%20Assets/";
     const LD = "https://cdn.leekduck.com/assets/img/pokemon_icons/";
     const p = (icon) => `${PM}${icon}.icon.png`;
@@ -501,6 +501,38 @@
           {id:"mf-audino",         name:"Mega Audino",         types:["Normal","Fairy"],     img:p("pm531.fMEGA")},
         ]}],
       },
+
+      // ── GO WILD AREA 2026: GLOBAL (Nov 14–15) ────────────────────────────────
+      { id:"wa-sat", tab:"wildarea", title:"Saturday, November 14", subtitle:"10:00 AM – 6:00 PM local · Steel / Dragon",
+        groups:[
+          { tier:"3-Star", bosses:[
+            {id:"wa-sat-machamp", name:"Machamp (Modern Jacket)", types:["Fighting"],         img:`${LD}pm68.fWILDAREA_2026_01.icon.png`},
+          ]},
+          { tier:"5-Star", bosses:[
+            {id:"wa-zekrom",      name:"Zekrom",                types:["Dragon","Electric"],  img:p("pm644")},
+            {id:"wa-kyurem-w",    name:"Kyurem (White)",        types:["Dragon","Ice"],       img:p("pm646.fWHITE")},
+          ]},
+          { tier:"Max Battle", bosses:[
+            {id:"wa-sat-gmax-dura", name:"Gigantamax Duraludon", types:["Steel","Dragon"],    img:p("pm884")},
+            {id:"wa-dmax-dialga", name:"Dynamax Dialga",        types:["Steel","Dragon"],     img:p("pm483")},
+          ]},
+        ],
+      },
+      { id:"wa-sun", tab:"wildarea", title:"Sunday, November 15", subtitle:"10:00 AM – 6:00 PM local · Steel / Dragon",
+        groups:[
+          { tier:"3-Star", bosses:[
+            {id:"wa-sun-machamp", name:"Machamp (Modern Jacket)", types:["Fighting"],         img:`${LD}pm68.fWILDAREA_2026_01.icon.png`},
+          ]},
+          { tier:"5-Star", bosses:[
+            {id:"wa-reshiram",    name:"Reshiram",              types:["Dragon","Fire"],      img:p("pm643")},
+            {id:"wa-kyurem-b",    name:"Kyurem (Black)",        types:["Dragon","Ice"],       img:p("pm646.fBLACK")},
+          ]},
+          { tier:"Max Battle", bosses:[
+            {id:"wa-sun-gmax-dura", name:"Gigantamax Duraludon", types:["Steel","Dragon"],    img:p("pm884")},
+            {id:"wa-dmax-palkia", name:"Dynamax Palkia",        types:["Water","Dragon"],     img:p("pm484")},
+          ]},
+        ],
+      },
     ];
 
     const ALL_BOSSES = SECTIONS.flatMap(s => s.groups.flatMap(g => g.bosses));
@@ -912,6 +944,7 @@
         { id:"sunday",   label:"🌙 Sunday" },
         { id:"makeup",   label:"🔁 Makeup" },
         { id:"finale",   label:"🏆 Finale" },
+        { id:"wildarea", label:"🌿 Wild Area" },
       ];
 
       return (
@@ -998,6 +1031,15 @@
                 Habitats rotate hourly, each appearing twice per day. Mega Mewtwo X on Saturday, Mega Mewtwo Y on Sunday.
                 Debuts: Mega Chesnaught, Mega Delphox, Mega Greninja, Mega Starmie, Mega Dragonite, Mega Skarmory, Mega Raichu X/Y &amp; more.
                 No Remote Raid limit. Extra CP boost for all Mega Evolutions.
+              </div>
+            )}
+            {/* Wild Area notice banner */}
+            {(activeTab==="wildarea"||activeTab==="all") && (
+              <div style={{ background:"#0b1a1f", border:"1px solid #16404a", borderRadius:8,
+                padding:"10px 14px", marginBottom:10, fontSize:11, color:"#5aa0b0", lineHeight:1.5 }}>
+                <span style={{ fontWeight:700, color:"#60C8E0" }}>🌿 GO Wild Area 2026: Global — Nov 14–15</span> — 10 AM–6 PM local both days.
+                Debuts: Gigantamax Duraludon (6-star Max Battles both days), Dynamax Dialga (Sat), Dynamax Palkia (Sun), Modern Jacket Machamp (3-star).
+                Up to 3 free Raid Passes/day (6 with ticket). Raid Kyurem can know Glaciate; Black &amp; White Kyurem raids give Fusion Energy.
               </div>
             )}
 
