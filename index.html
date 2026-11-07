@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GO 2026 · Raid Checklist</title>
+  <title>GO Wild Area 2026 · Raids</title>
   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -34,476 +34,15 @@
       Dragon:   { bg:"#5060E1", tx:"#fff" }, Dark:     { bg:"#624D4E", tx:"#fff" },
       Steel:    { bg:"#60A1B8", tx:"#fff" }, Fairy:    { bg:"#EF70EF", tx:"#fff" },
     };
-    const TIER_COLORS = { "1-Star":"#aaa", "5-Star":"#F6C614", "Mega":"#B97FFF", "Primal":"#FF6B35", "Super Mega":"#FF3366", "3-Star":"#E8A040", "Max Battle":"#E0218A" };
+    const TIER_COLORS = { "3-Star":"#E8A040", "5-Star":"#F6C614", "Max Battle":"#E0218A" };
     const PM = "https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Pokemon/Addressable%20Assets/";
     const LD = "https://cdn.leekduck.com/assets/img/pokemon_icons/";
     const p = (icon) => `${PM}${icon}.icon.png`;
 
     // ── Raid Data ──────────────────────────────────────────────────────────────
     const SECTIONS = [
-      // ── LEAD-UP ──────────────────────────────────────────────────────────────
-      {
-        id:"mon", tab:"leadup", title:"Monday, July 6",
-        subtitle:"Nearly every Legendary returns for one day",
-        groups:[
-          { tier:"5-Star", bosses:[
-            {id:"m-articuno",    name:"Articuno",              types:["Ice","Flying"],       img:p("pm144")},
-            {id:"m-zapdos",      name:"Zapdos",                types:["Electric","Flying"],  img:p("pm145")},
-            {id:"m-moltres",     name:"Moltres",               types:["Fire","Flying"],      img:p("pm146")},
-            {id:"m-raikou",      name:"Raikou",                types:["Electric"],           img:p("pm243")},
-            {id:"m-entei",       name:"Entei",                 types:["Fire"],               img:p("pm244")},
-            {id:"m-suicune",     name:"Suicune",               types:["Water"],              img:p("pm245")},
-            {id:"m-lugia",       name:"Lugia",                 types:["Psychic","Flying"],   img:p("pm249")},
-            {id:"m-hooh",        name:"Ho-Oh",                 types:["Fire","Flying"],      img:p("pm250")},
-            {id:"m-regirock",    name:"Regirock",              types:["Rock"],               img:p("pm377")},
-            {id:"m-regice",      name:"Regice",                types:["Ice"],                img:p("pm378")},
-            {id:"m-registeel",   name:"Registeel",             types:["Steel"],              img:p("pm379")},
-            {id:"m-latias",      name:"Latias",                types:["Dragon","Psychic"],   img:p("pm380")},
-            {id:"m-latios",      name:"Latios",                types:["Dragon","Psychic"],   img:p("pm381")},
-            {id:"m-kyogre",      name:"Kyogre",                types:["Water"],              img:p("pm382")},
-            {id:"m-groudon",     name:"Groudon",               types:["Ground"],             img:p("pm383")},
-            {id:"m-rayquaza",    name:"Rayquaza",              types:["Dragon","Flying"],    img:p("pm384")},
-            {id:"m-deoxys-n",    name:"Deoxys (Normal)",       types:["Psychic"],            img:p("pm386")},
-            {id:"m-deoxys-a",    name:"Deoxys (Attack)",       types:["Psychic"],            img:p("pm386.fATTACK")},
-            {id:"m-deoxys-d",    name:"Deoxys (Defense)",      types:["Psychic"],            img:p("pm386.fDEFENSE")},
-            {id:"m-deoxys-s",    name:"Deoxys (Speed)",        types:["Psychic"],            img:p("pm386.fSPEED")},
-            {id:"m-uxie",        name:"Uxie",                  types:["Psychic"],            img:p("pm480"), regional:"Asia-Pacific"},
-            {id:"m-mesprit",     name:"Mesprit",               types:["Psychic"],            img:p("pm481"), regional:"Europe/ME/Africa/India"},
-            {id:"m-azelf",       name:"Azelf",                 types:["Psychic"],            img:p("pm482"), regional:"Americas & Greenland"},
-            {id:"m-dialga",      name:"Dialga",                types:["Steel","Dragon"],     img:p("pm483")},
-            {id:"m-palkia",      name:"Palkia",                types:["Water","Dragon"],     img:p("pm484")},
-            {id:"m-dialga-o",    name:"Dialga (Origin)",       types:["Steel","Dragon"],     img:p("pm483.fORIGIN")},
-            {id:"m-palkia-o",    name:"Palkia (Origin)",       types:["Water","Dragon"],     img:p("pm484.fORIGIN")},
-            {id:"m-heatran",     name:"Heatran",               types:["Fire","Steel"],       img:p("pm485")},
-            {id:"m-regigigas",   name:"Regigigas",             types:["Normal"],             img:p("pm486")},
-            {id:"m-giratina-a",  name:"Giratina (Altered)",    types:["Ghost","Dragon"],     img:p("pm487.fALTERED")},
-            {id:"m-giratina-o",  name:"Giratina (Origin)",     types:["Ghost","Dragon"],     img:p("pm487.fORIGIN")},
-            {id:"m-cresselia",   name:"Cresselia",             types:["Psychic"],            img:p("pm488")},
-            {id:"m-darkrai",     name:"Darkrai",               types:["Dark"],               img:p("pm491")},
-            {id:"m-cobalion",    name:"Cobalion",              types:["Steel","Fighting"],   img:p("pm638")},
-            {id:"m-terrakion",   name:"Terrakion",             types:["Rock","Fighting"],    img:p("pm639")},
-            {id:"m-virizion",    name:"Virizion",              types:["Grass","Fighting"],   img:p("pm640")},
-            {id:"m-torn-i",      name:"Tornadus (Incarnate)",  types:["Flying"],             img:p("pm641.fINCARNATE")},
-            {id:"m-torn-t",      name:"Tornadus (Therian)",    types:["Flying"],             img:p("pm641.fTHERIAN")},
-            {id:"m-thund-i",     name:"Thundurus (Incarnate)", types:["Electric","Flying"],  img:p("pm642.fINCARNATE")},
-            {id:"m-thund-t",     name:"Thundurus (Therian)",   types:["Electric","Flying"],  img:p("pm642.fTHERIAN")},
-            {id:"m-reshiram",    name:"Reshiram",              types:["Dragon","Fire"],      img:p("pm643")},
-            {id:"m-zekrom",      name:"Zekrom",                types:["Dragon","Electric"],  img:p("pm644")},
-            {id:"m-land-i",      name:"Landorus (Incarnate)",  types:["Ground","Flying"],    img:p("pm645.fINCARNATE")},
-            {id:"m-land-t",      name:"Landorus (Therian)",    types:["Ground","Flying"],    img:p("pm645.fTHERIAN")},
-            {id:"m-kyurem",      name:"Kyurem",                types:["Dragon","Ice"],       img:p("pm646")},
-            {id:"m-genesect",    name:"Genesect",              types:["Bug","Steel"],        img:p("pm649.fNORMAL")},
-            {id:"m-genesect-b",  name:"Genesect (Burn)",       types:["Bug","Steel"],        img:p("pm649.fBURN")},
-            {id:"m-genesect-c",  name:"Genesect (Chill)",      types:["Bug","Steel"],        img:p("pm649.fCHILL")},
-            {id:"m-genesect-d",  name:"Genesect (Douse)",      types:["Bug","Steel"],        img:p("pm649.fDOUSE")},
-            {id:"m-genesect-s",  name:"Genesect (Shock)",      types:["Bug","Steel"],        img:p("pm649.fSHOCK")},
-            {id:"m-xerneas",     name:"Xerneas",               types:["Fairy"],              img:p("pm716")},
-            {id:"m-yveltal",     name:"Yveltal",               types:["Dark","Flying"],      img:p("pm717")},
-            {id:"m-tapukoko",    name:"Tapu Koko",             types:["Electric","Fairy"],   img:p("pm785")},
-            {id:"m-tapulele",    name:"Tapu Lele",             types:["Psychic","Fairy"],    img:p("pm786")},
-            {id:"m-tapubulu",    name:"Tapu Bulu",             types:["Grass","Fairy"],      img:p("pm787")},
-            {id:"m-tapufini",    name:"Tapu Fini",             types:["Water","Fairy"],      img:p("pm788")},
-            {id:"m-solgaleo",    name:"Solgaleo",              types:["Psychic","Steel"],    img:p("pm791")},
-            {id:"m-lunala",      name:"Lunala",                types:["Psychic","Ghost"],    img:p("pm792")},
-            {id:"m-nihilego",    name:"Nihilego",              types:["Rock","Poison"],      img:p("pm793")},
-            {id:"m-buzzwole",    name:"Buzzwole",              types:["Bug","Fighting"],     img:p("pm794"), regional:"Americas & Greenland"},
-            {id:"m-pheromosa",   name:"Pheromosa",             types:["Bug","Fighting"],     img:p("pm795"), regional:"Europe/ME/Africa/India"},
-            {id:"m-xurkitree",   name:"Xurkitree",             types:["Electric"],           img:p("pm796"), regional:"Asia-Pacific"},
-            {id:"m-celesteela",  name:"Celesteela",            types:["Steel","Flying"],     img:p("pm797"), regional:"Southern Hemisphere"},
-            {id:"m-kartana",     name:"Kartana",               types:["Grass","Steel"],      img:p("pm798"), regional:"Northern Hemisphere"},
-            {id:"m-guzzlord",    name:"Guzzlord",              types:["Dark","Dragon"],      img:p("pm799")},
-            {id:"m-necrozma",    name:"Necrozma",              types:["Psychic"],            img:p("pm800")},
-            {id:"m-stakataka",   name:"Stakataka",             types:["Rock","Steel"],       img:p("pm805"), regional:"Eastern Hemisphere"},
-            {id:"m-blacephalon", name:"Blacephalon",           types:["Fire","Ghost"],       img:p("pm806"), regional:"Western Hemisphere"},
-            {id:"m-zacian-h",    name:"Zacian (Hero)",         types:["Fairy"],              img:p("pm888.fHERO")},
-            {id:"m-zamazenta-h", name:"Zamazenta (Hero)",      types:["Fighting"],           img:p("pm889.fHERO")},
-            {id:"m-regieleki",   name:"Regieleki",             types:["Electric"],           img:p("pm894")},
-            {id:"m-regidrago",   name:"Regidrago",             types:["Dragon"],             img:p("pm895")},
-            {id:"m-enam-i",      name:"Enamorus (Incarnate)",  types:["Fairy","Flying"],     img:p("pm905.fINCARNATE")},
-            {id:"m-enam-t",      name:"Enamorus (Therian)",    types:["Fairy","Flying"],     img:p("pm905.fTHERIAN")},
-          ]},
-          { tier:"Mega", bosses:[
-            {id:"m-mega-salm",   name:"Mega Salamence",        types:["Dragon","Flying"],    img:p("pm373.fMEGA")},
-          ]},
-        ],
-      },
-      { id:"tue", tab:"leadup", title:"Tuesday, July 7", subtitle:"",
-        groups:[
-          { tier:"5-Star", bosses:[
-            {id:"t-kyurem-w",    name:"Kyurem (White)",        types:["Dragon","Ice"],       img:p("pm646.fWHITE")},
-            {id:"t-zekrom",      name:"Zekrom",                types:["Dragon","Electric"],  img:p("pm644")},
-            {id:"t-necrozma-dw", name:"Necrozma (Dawn Wings)", types:["Psychic","Ghost"],    img:p("pm800.fDAWN_WINGS")},
-          ]},
-          { tier:"Mega", bosses:[
-            {id:"t-mega-tyran",  name:"Mega Tyranitar",        types:["Rock","Dark"],        img:p("pm248.fMEGA")},
-          ]},
-        ],
-      },
-      { id:"wed", tab:"leadup", title:"Wednesday, July 8", subtitle:"",
-        groups:[
-          { tier:"5-Star", bosses:[
-            {id:"w-kyurem-b",    name:"Kyurem (Black)",        types:["Dragon","Ice"],       img:p("pm646.fBLACK")},
-            {id:"w-reshiram",    name:"Reshiram",              types:["Dragon","Fire"],      img:p("pm643")},
-            {id:"w-necrozma-dm", name:"Necrozma (Dusk Mane)",  types:["Psychic","Steel"],    img:p("pm800.fDUSK_MANE")},
-          ]},
-          { tier:"Mega", bosses:[
-            {id:"w-mega-gard",   name:"Mega Gardevoir",        types:["Psychic","Fairy"],    img:p("pm282.fMEGA")},
-          ]},
-        ],
-      },
-      { id:"thu", tab:"leadup", title:"Thursday, July 9", subtitle:"",
-        groups:[
-          { tier:"5-Star", bosses:[
-            {id:"th-zacian-cs",  name:"Zacian (Crowned Sword)", types:["Fairy","Steel"],    img:p("pm888.fCROWNED_SWORD")},
-            {id:"th-zam-cs",     name:"Zamazenta (Crowned)",    types:["Fighting","Steel"],  img:p("pm889.fCROWNED_SHIELD")},
-          ]},
-          { tier:"Mega", bosses:[
-            {id:"th-mega-geng",  name:"Mega Gengar",           types:["Ghost","Poison"],     img:p("pm94.fMEGA")},
-          ]},
-        ],
-      },
-      { id:"fri", tab:"leadup", title:"Friday, July 10", subtitle:"",
-        groups:[
-          { tier:"5-Star", bosses:[
-            {id:"f-dialga-o",    name:"Dialga (Origin)",       types:["Steel","Dragon"],     img:p("pm483.fORIGIN")},
-            {id:"f-palkia-o",    name:"Palkia (Origin)",       types:["Water","Dragon"],     img:p("pm484.fORIGIN")},
-          ]},
-          { tier:"Primal", bosses:[
-            {id:"f-pkyo",        name:"Primal Kyogre",         types:["Water"],              img:p("pm382.fPRIMAL")},
-            {id:"f-pgrou",       name:"Primal Groudon",        types:["Ground","Fire"],      img:p("pm383.fPRIMAL")},
-          ]},
-        ],
-      },
-
-      // ── SATURDAY ─────────────────────────────────────────────────────────────
-      { id:"sat-super", tab:"saturday", title:"Super Mega Raid", subtitle:"All day Saturday · Jul 11",
-        groups:[{ tier:"Super Mega", bosses:[
-          {id:"ss-mewtwox",    name:"Mega Mewtwo X",           types:["Psychic","Fighting"], img:p("pm150.fMEGA_X")},
-        ]}],
-      },
-      { id:"sat-storm", tab:"saturday", title:"Stormfire Peaks", subtitle:"Saturday · 10:00 AM – 1:00 PM · Ice / Electric / Fire",
-        groups:[
-          { tier:"Mega", bosses:[
-            {id:"sf-mega-amph",  name:"Mega Ampharos",         types:["Electric","Dragon"],  img:p("pm181.fMEGA")},
-            {id:"sf-mega-blaz",  name:"Mega Blaziken",         types:["Fire","Fighting"],    img:p("pm257.fMEGA")},
-            {id:"sf-mega-abom",  name:"Mega Abomasnow",        types:["Grass","Ice"],        img:p("pm460.fMEGA")},
-          ]},
-          { tier:"5-Star", bosses:[
-            {id:"sf-articuno",   name:"Articuno",              types:["Ice","Flying"],       img:p("pm144")},
-            {id:"sf-zapdos",     name:"Zapdos",                types:["Electric","Flying"],  img:p("pm145")},
-            {id:"sf-moltres",    name:"Moltres",               types:["Fire","Flying"],      img:p("pm146")},
-            {id:"sf-raikou",     name:"Raikou",                types:["Electric"],           img:p("pm243")},
-            {id:"sf-entei",      name:"Entei",                 types:["Fire"],               img:p("pm244")},
-            {id:"sf-suicune",    name:"Suicune",               types:["Water"],              img:p("pm245")},
-            {id:"sf-lugia",      name:"Lugia",                 types:["Psychic","Flying"],   img:p("pm249")},
-            {id:"sf-hooh",       name:"Ho-Oh",                 types:["Fire","Flying"],      img:p("pm250")},
-          ]},
-        ],
-      },
-      { id:"sat-astral", tab:"saturday", title:"Astral Tides", subtitle:"Saturday · 1:00 PM – 4:00 PM · Psychic / Ghost / Water",
-        groups:[
-          { tier:"Mega", bosses:[
-            {id:"at-mega-alak",  name:"Mega Alakazam",         types:["Psychic"],            img:p("pm65.fMEGA")},
-            {id:"at-mega-geng",  name:"Mega Gengar",           types:["Ghost","Poison"],     img:p("pm94.fMEGA")},
-            {id:"at-mega-swam",  name:"Mega Swampert",         types:["Water","Ground"],     img:p("pm260.fMEGA")},
-          ]},
-          { tier:"5-Star", bosses:[
-            {id:"at-uxie",       name:"Uxie",                  types:["Psychic"],            img:p("pm480"), regional:"Asia-Pacific"},
-            {id:"at-mesprit",    name:"Mesprit",               types:["Psychic"],            img:p("pm481"), regional:"Europe/ME/Africa/India"},
-            {id:"at-azelf",      name:"Azelf",                 types:["Psychic"],            img:p("pm482"), regional:"Americas & Greenland"},
-            {id:"at-dialga",     name:"Dialga",                types:["Steel","Dragon"],     img:p("pm483")},
-            {id:"at-palkia",     name:"Palkia",                types:["Water","Dragon"],     img:p("pm484")},
-            {id:"at-gir-a",      name:"Giratina (Altered)",    types:["Ghost","Dragon"],     img:p("pm487.fALTERED")},
-            {id:"at-gir-o",      name:"Giratina (Origin)",     types:["Ghost","Dragon"],     img:p("pm487.fORIGIN")},
-            {id:"at-xerneas",    name:"Xerneas",               types:["Fairy"],              img:p("pm716")},
-            {id:"at-yveltal",    name:"Yveltal",               types:["Dark","Flying"],      img:p("pm717")},
-            {id:"at-solgaleo",   name:"Solgaleo",              types:["Psychic","Steel"],    img:p("pm791")},
-            {id:"at-lunala",     name:"Lunala",                types:["Psychic","Ghost"],    img:p("pm792")},
-          ]},
-        ],
-      },
-      { id:"sat-dragon", tab:"saturday", title:"Dragonflight Summit", subtitle:"Saturday · 4:00 PM – 7:00 PM · Flying / Rock / Dragon",
-        groups:[
-          { tier:"Mega", bosses:[
-            {id:"ds-mega-pidg",  name:"Mega Pidgeot",          types:["Normal","Flying"],    img:p("pm18.fMEGA")},
-            {id:"ds-mega-aero",  name:"Mega Aerodactyl",       types:["Rock","Flying"],      img:p("pm142.fMEGA")},
-            {id:"ds-mega-salm",  name:"Mega Salamence",        types:["Dragon","Flying"],    img:p("pm373.fMEGA")},
-          ]},
-          { tier:"5-Star", bosses:[
-            {id:"ds-kyogre",     name:"Kyogre",                types:["Water"],              img:p("pm382")},
-            {id:"ds-groudon",    name:"Groudon",               types:["Ground"],             img:p("pm383")},
-            {id:"ds-rayquaza",   name:"Rayquaza",              types:["Dragon","Flying"],    img:p("pm384")},
-            {id:"ds-reshiram",   name:"Reshiram",              types:["Dragon","Fire"],      img:p("pm643")},
-            {id:"ds-zekrom",     name:"Zekrom",                types:["Dragon","Electric"],  img:p("pm644")},
-            {id:"ds-kyurem",     name:"Kyurem",                types:["Dragon","Ice"],       img:p("pm646")},
-          ]},
-        ],
-      },
-
-      // ── SUNDAY ───────────────────────────────────────────────────────────────
-      { id:"sun-super", tab:"sunday", title:"Super Mega Raid", subtitle:"All day Sunday · Jul 12",
-        groups:[{ tier:"Super Mega", bosses:[
-          {id:"su-mewtwoy",    name:"Mega Mewtwo Y",           types:["Psychic"],            img:p("pm150.fMEGA_Y")},
-        ]}],
-      },
-      { id:"sun-earth", tab:"sunday", title:"Earthforged Domain", subtitle:"Sunday · 10:00 AM – 1:00 PM · Ground / Steel / Normal",
-        groups:[
-          { tier:"Mega", bosses:[
-            {id:"ed-mega-meta",  name:"Mega Metagross",        types:["Steel","Psychic"],    img:p("pm376.fMEGA")},
-            {id:"ed-mega-garc",  name:"Mega Garchomp",         types:["Dragon","Ground"],    img:p("pm445.fMEGA")},
-            {id:"ed-mega-audi",  name:"Mega Audino",           types:["Normal","Fairy"],     img:p("pm531.fMEGA")},
-          ]},
-          { tier:"5-Star", bosses:[
-            {id:"ed-regirock",   name:"Regirock",              types:["Rock"],               img:p("pm377")},
-            {id:"ed-regice",     name:"Regice",                types:["Ice"],                img:p("pm378")},
-            {id:"ed-registeel",  name:"Registeel",             types:["Steel"],              img:p("pm379")},
-            {id:"ed-dialga-o",   name:"Dialga (Origin)",       types:["Steel","Dragon"],     img:p("pm483.fORIGIN")},
-            {id:"ed-palkia-o",   name:"Palkia (Origin)",       types:["Water","Dragon"],     img:p("pm484.fORIGIN")},
-            {id:"ed-heatran",    name:"Heatran",               types:["Fire","Steel"],       img:p("pm485")},
-            {id:"ed-regigigas",  name:"Regigigas",             types:["Normal"],             img:p("pm486")},
-            {id:"ed-torn-i",     name:"Tornadus (Incarnate)",  types:["Flying"],             img:p("pm641.fINCARNATE")},
-            {id:"ed-torn-t",     name:"Tornadus (Therian)",    types:["Flying"],             img:p("pm641.fTHERIAN")},
-            {id:"ed-thund-i",    name:"Thundurus (Incarnate)", types:["Electric","Flying"],  img:p("pm642.fINCARNATE")},
-            {id:"ed-thund-t",    name:"Thundurus (Therian)",   types:["Electric","Flying"],  img:p("pm642.fTHERIAN")},
-            {id:"ed-land-i",     name:"Landorus (Incarnate)",  types:["Ground","Flying"],    img:p("pm645.fINCARNATE")},
-            {id:"ed-land-t",     name:"Landorus (Therian)",    types:["Ground","Flying"],    img:p("pm645.fTHERIAN")},
-            {id:"ed-enam-i",     name:"Enamorus (Incarnate)",  types:["Fairy","Flying"],     img:p("pm905.fINCARNATE")},
-            {id:"ed-enam-t",     name:"Enamorus (Therian)",    types:["Fairy","Flying"],     img:p("pm905.fTHERIAN")},
-            {id:"ed-regieleki",  name:"Regieleki",             types:["Electric"],           img:p("pm894")},
-            {id:"ed-regidrago",  name:"Regidrago",             types:["Dragon"],             img:p("pm895")},
-          ]},
-        ],
-      },
-      { id:"sun-verdant", tab:"sunday", title:"Verdant Anomaly", subtitle:"Sunday · 1:00 PM – 4:00 PM · Poison / Bug / Grass",
-        groups:[
-          { tier:"Mega", bosses:[
-            {id:"va-mega-beed",  name:"Mega Beedrill",         types:["Bug","Poison"],       img:p("pm15.fMEGA")},
-            {id:"va-mega-pins",  name:"Mega Pinsir",           types:["Bug","Flying"],       img:p("pm127.fMEGA")},
-            {id:"va-mega-scep",  name:"Mega Sceptile",         types:["Grass","Dragon"],     img:p("pm254.fMEGA")},
-          ]},
-          { tier:"5-Star", bosses:[
-            {id:"va-deoxys-n",   name:"Deoxys (Normal)",       types:["Psychic"],            img:p("pm386")},
-            {id:"va-deoxys-a",   name:"Deoxys (Attack)",       types:["Psychic"],            img:p("pm386.fATTACK")},
-            {id:"va-deoxys-d",   name:"Deoxys (Defense)",      types:["Psychic"],            img:p("pm386.fDEFENSE")},
-            {id:"va-deoxys-s",   name:"Deoxys (Speed)",        types:["Psychic"],            img:p("pm386.fSPEED")},
-            {id:"va-genesect",   name:"Genesect",              types:["Bug","Steel"],        img:p("pm649.fNORMAL")},
-            {id:"va-genes-d",    name:"Genesect (Douse)",      types:["Bug","Steel"],        img:p("pm649.fDOUSE")},
-            {id:"va-genes-s",    name:"Genesect (Shock)",      types:["Bug","Steel"],        img:p("pm649.fSHOCK")},
-            {id:"va-genes-b",    name:"Genesect (Burn)",       types:["Bug","Steel"],        img:p("pm649.fBURN")},
-            {id:"va-genes-c",    name:"Genesect (Chill)",      types:["Bug","Steel"],        img:p("pm649.fCHILL")},
-            {id:"va-nihilego",   name:"Nihilego",              types:["Rock","Poison"],      img:p("pm793")},
-            {id:"va-buzzwole",   name:"Buzzwole",              types:["Bug","Fighting"],     img:p("pm794"), regional:"Americas & Greenland"},
-            {id:"va-pheromosa",  name:"Pheromosa",             types:["Bug","Fighting"],     img:p("pm795"), regional:"Europe/ME/Africa/India"},
-            {id:"va-xurkitree",  name:"Xurkitree",             types:["Electric"],           img:p("pm796"), regional:"Asia-Pacific"},
-            {id:"va-celesteela", name:"Celesteela",            types:["Steel","Flying"],     img:p("pm797"), regional:"Southern Hemisphere"},
-            {id:"va-kartana",    name:"Kartana",               types:["Grass","Steel"],      img:p("pm798"), regional:"Northern Hemisphere"},
-            {id:"va-guzzlord",   name:"Guzzlord",              types:["Dark","Dragon"],      img:p("pm799")},
-            {id:"va-necrozma",   name:"Necrozma",              types:["Psychic"],            img:p("pm800")},
-            {id:"va-stakataka",  name:"Stakataka",             types:["Rock","Steel"],       img:p("pm805"), regional:"Eastern Hemisphere"},
-            {id:"va-blacepha",   name:"Blacephalon",           types:["Fire","Ghost"],       img:p("pm806"), regional:"Western Hemisphere"},
-            {id:"va-tapukoko",   name:"Tapu Koko",             types:["Electric","Fairy"],   img:p("pm785")},
-            {id:"va-tapulele",   name:"Tapu Lele",             types:["Psychic","Fairy"],    img:p("pm786")},
-            {id:"va-tapubulu",   name:"Tapu Bulu",             types:["Grass","Fairy"],      img:p("pm787")},
-            {id:"va-tapufini",   name:"Tapu Fini",             types:["Water","Fairy"],      img:p("pm788")},
-          ]},
-        ],
-      },
-      { id:"sun-twilight", tab:"sunday", title:"Twilight Battlefield", subtitle:"Sunday · 4:00 PM – 7:00 PM · Dark / Fairy / Fighting",
-        groups:[
-          { tier:"Mega", bosses:[
-            {id:"tb-mega-tyran", name:"Mega Tyranitar",        types:["Rock","Dark"],        img:p("pm248.fMEGA")},
-            {id:"tb-mega-gard",  name:"Mega Gardevoir",        types:["Psychic","Fairy"],    img:p("pm282.fMEGA")},
-            {id:"tb-mega-luca",  name:"Mega Lucario",          types:["Fighting","Steel"],   img:p("pm448.fMEGA")},
-          ]},
-          { tier:"5-Star", bosses:[
-            {id:"tb-latias",     name:"Latias",                types:["Dragon","Psychic"],   img:p("pm380")},
-            {id:"tb-latios",     name:"Latios",                types:["Dragon","Psychic"],   img:p("pm381")},
-            {id:"tb-cresselia",  name:"Cresselia",             types:["Psychic"],            img:p("pm488")},
-            {id:"tb-darkrai",    name:"Darkrai",               types:["Dark"],               img:p("pm491")},
-            {id:"tb-cobalion",   name:"Cobalion",              types:["Steel","Fighting"],   img:p("pm638")},
-            {id:"tb-terrakion",  name:"Terrakion",             types:["Rock","Fighting"],    img:p("pm639")},
-            {id:"tb-virizion",   name:"Virizion",              types:["Grass","Fighting"],   img:p("pm640")},
-            {id:"tb-zacian-h",   name:"Zacian (Hero)",         types:["Fairy"],              img:p("pm888.fHERO")},
-            {id:"tb-zamazenta-h",name:"Zamazenta (Hero)",      types:["Fighting"],           img:p("pm889.fHERO")},
-          ]},
-        ],
-      },
-
-      // ── MAKEUP (July 26) ──────────────────────────────────────────────────────
-      { id:"mk-super", tab:"makeup", title:"Super Mega Raid", subtitle:"All day · Jul 26 Makeup",
-        groups:[{ tier:"Super Mega", bosses:[
-          {id:"mk-mewtwoy",    name:"Mega Mewtwo Y",           types:["Psychic"],            img:p("pm150.fMEGA_Y")},
-        ]}],
-      },
-      { id:"mk-1star", tab:"makeup", title:"1-Star Raids", subtitle:"Jul 26 · All day",
-        groups:[{ tier:"1-Star", bosses:[
-          {id:"mk-pika-y",     name:"Pikachu (Instinct Hat)",  types:["Electric"],           img:`${LD}pm25.fGOFEST_2026_CAP_YELLOW.icon.png`},
-          {id:"mk-pika-b",     name:"Pikachu (Mystic Hat)",    types:["Electric"],           img:`${LD}pm25.fGOFEST_2026_CAP_BLUE.icon.png`},
-          {id:"mk-pika-r",     name:"Pikachu (Valor Hat)",     types:["Electric"],           img:`${LD}pm25.fGOFEST_2026_CAP_RED.icon.png`},
-        ]}],
-      },
-      { id:"mk-earth", tab:"makeup", title:"Earthforged Domain", subtitle:"Jul 26 Makeup · 10:00 AM – 1:00 PM · Ground / Steel / Normal",
-        groups:[
-          { tier:"Mega", bosses:[
-            {id:"mk2-mega-meta", name:"Mega Metagross",        types:["Steel","Psychic"],    img:p("pm376.fMEGA")},
-            {id:"mk2-mega-garc", name:"Mega Garchomp",         types:["Dragon","Ground"],    img:p("pm445.fMEGA")},
-            {id:"mk2-mega-audi", name:"Mega Audino",           types:["Normal","Fairy"],     img:p("pm531.fMEGA")},
-          ]},
-          { tier:"5-Star", bosses:[
-            {id:"mk2-regirock",  name:"Regirock",              types:["Rock"],               img:p("pm377")},
-            {id:"mk2-regice",    name:"Regice",                types:["Ice"],                img:p("pm378")},
-            {id:"mk2-registeel", name:"Registeel",             types:["Steel"],              img:p("pm379")},
-            {id:"mk2-dialga-o",  name:"Dialga (Origin)",       types:["Steel","Dragon"],     img:p("pm483.fORIGIN")},
-            {id:"mk2-palkia-o",  name:"Palkia (Origin)",       types:["Water","Dragon"],     img:p("pm484.fORIGIN")},
-            {id:"mk2-heatran",   name:"Heatran",               types:["Fire","Steel"],       img:p("pm485")},
-            {id:"mk2-regigigas", name:"Regigigas",             types:["Normal"],             img:p("pm486")},
-            {id:"mk2-torn-i",    name:"Tornadus (Incarnate)",  types:["Flying"],             img:p("pm641.fINCARNATE")},
-            {id:"mk2-torn-t",    name:"Tornadus (Therian)",    types:["Flying"],             img:p("pm641.fTHERIAN")},
-            {id:"mk2-thund-i",   name:"Thundurus (Incarnate)", types:["Electric","Flying"],  img:p("pm642.fINCARNATE")},
-            {id:"mk2-thund-t",   name:"Thundurus (Therian)",   types:["Electric","Flying"],  img:p("pm642.fTHERIAN")},
-            {id:"mk2-land-i",    name:"Landorus (Incarnate)",  types:["Ground","Flying"],    img:p("pm645.fINCARNATE")},
-            {id:"mk2-land-t",    name:"Landorus (Therian)",    types:["Ground","Flying"],    img:p("pm645.fTHERIAN")},
-            {id:"mk2-enam-i",    name:"Enamorus (Incarnate)",  types:["Fairy","Flying"],     img:p("pm905.fINCARNATE")},
-            {id:"mk2-enam-t",    name:"Enamorus (Therian)",    types:["Fairy","Flying"],     img:p("pm905.fTHERIAN")},
-            {id:"mk2-regieleki", name:"Regieleki",             types:["Electric"],           img:p("pm894")},
-            {id:"mk2-regidrago", name:"Regidrago",             types:["Dragon"],             img:p("pm895")},
-          ]},
-        ],
-      },
-      { id:"mk-verdant", tab:"makeup", title:"Verdant Anomaly", subtitle:"Jul 26 Makeup · 1:00 PM – 4:00 PM · Poison / Bug / Grass",
-        groups:[
-          { tier:"Mega", bosses:[
-            {id:"mk2-mega-beed", name:"Mega Beedrill",         types:["Bug","Poison"],       img:p("pm15.fMEGA")},
-            {id:"mk2-mega-pins", name:"Mega Pinsir",           types:["Bug","Flying"],       img:p("pm127.fMEGA")},
-            {id:"mk2-mega-scep", name:"Mega Sceptile",         types:["Grass","Dragon"],     img:p("pm254.fMEGA")},
-          ]},
-          { tier:"5-Star", bosses:[
-            {id:"mk2-deoxys-a",  name:"Deoxys (Attack)",       types:["Psychic"],            img:p("pm386.fATTACK")},
-            {id:"mk2-deoxys-d",  name:"Deoxys (Defense)",      types:["Psychic"],            img:p("pm386.fDEFENSE")},
-            {id:"mk2-deoxys-n",  name:"Deoxys (Normal)",       types:["Psychic"],            img:p("pm386")},
-            {id:"mk2-deoxys-s",  name:"Deoxys (Speed)",        types:["Psychic"],            img:p("pm386.fSPEED")},
-            {id:"mk2-genesect",  name:"Genesect",              types:["Bug","Steel"],        img:p("pm649.fNORMAL")},
-            {id:"mk2-genes-b",   name:"Genesect (Burn)",       types:["Bug","Steel"],        img:p("pm649.fBURN")},
-            {id:"mk2-genes-c",   name:"Genesect (Chill)",      types:["Bug","Steel"],        img:p("pm649.fCHILL")},
-            {id:"mk2-genes-d",   name:"Genesect (Douse)",      types:["Bug","Steel"],        img:p("pm649.fDOUSE")},
-            {id:"mk2-genes-s",   name:"Genesect (Shock)",      types:["Bug","Steel"],        img:p("pm649.fSHOCK")},
-            {id:"mk2-tapukoko",  name:"Tapu Koko",             types:["Electric","Fairy"],   img:p("pm785")},
-            {id:"mk2-tapulele",  name:"Tapu Lele",             types:["Psychic","Fairy"],    img:p("pm786")},
-            {id:"mk2-tapubulu",  name:"Tapu Bulu",             types:["Grass","Fairy"],      img:p("pm787")},
-            {id:"mk2-tapufini",  name:"Tapu Fini",             types:["Water","Fairy"],      img:p("pm788")},
-            {id:"mk2-nihilego",  name:"Nihilego",              types:["Rock","Poison"],      img:p("pm793")},
-            {id:"mk2-buzzwole",  name:"Buzzwole",              types:["Bug","Fighting"],     img:p("pm794"), regional:"Americas & Greenland"},
-            {id:"mk2-pheromosa", name:"Pheromosa",             types:["Bug","Fighting"],     img:p("pm795"), regional:"Europe/ME/Africa/India"},
-            {id:"mk2-xurkitree", name:"Xurkitree",             types:["Electric"],           img:p("pm796"), regional:"Asia-Pacific"},
-            {id:"mk2-celesteela",name:"Celesteela",            types:["Steel","Flying"],     img:p("pm797"), regional:"Southern Hemisphere"},
-            {id:"mk2-kartana",   name:"Kartana",               types:["Grass","Steel"],      img:p("pm798"), regional:"Northern Hemisphere"},
-            {id:"mk2-guzzlord",  name:"Guzzlord",              types:["Dark","Dragon"],      img:p("pm799")},
-            {id:"mk2-necrozma",  name:"Necrozma",              types:["Psychic"],            img:p("pm800")},
-            {id:"mk2-stakataka", name:"Stakataka",             types:["Rock","Steel"],       img:p("pm805"), regional:"Eastern Hemisphere"},
-            {id:"mk2-blacepha",  name:"Blacephalon",           types:["Fire","Ghost"],       img:p("pm806"), regional:"Western Hemisphere"},
-          ]},
-        ],
-      },
-      { id:"mk-twilight", tab:"makeup", title:"Twilight Battlefield", subtitle:"Jul 26 Makeup · 4:00 PM – 7:00 PM · Dark / Fairy / Fighting",
-        groups:[
-          { tier:"Mega", bosses:[
-            {id:"mk2-mega-tyran",name:"Mega Tyranitar",        types:["Rock","Dark"],        img:p("pm248.fMEGA")},
-            {id:"mk2-mega-gard", name:"Mega Gardevoir",        types:["Psychic","Fairy"],    img:p("pm282.fMEGA")},
-            {id:"mk2-mega-luca", name:"Mega Lucario",          types:["Fighting","Steel"],   img:p("pm448.fMEGA")},
-          ]},
-          { tier:"5-Star", bosses:[
-            {id:"mk2-latias",    name:"Latias",                types:["Dragon","Psychic"],   img:p("pm380")},
-            {id:"mk2-latios",    name:"Latios",                types:["Dragon","Psychic"],   img:p("pm381")},
-            {id:"mk2-cresselia", name:"Cresselia",             types:["Psychic"],            img:p("pm488")},
-            {id:"mk2-darkrai",   name:"Darkrai",               types:["Dark"],               img:p("pm491")},
-            {id:"mk2-cobalion",  name:"Cobalion",              types:["Steel","Fighting"],   img:p("pm638")},
-            {id:"mk2-terrakion", name:"Terrakion",             types:["Rock","Fighting"],    img:p("pm639")},
-            {id:"mk2-virizion",  name:"Virizion",              types:["Grass","Fighting"],   img:p("pm640")},
-            {id:"mk2-zacian-h",  name:"Zacian (Hero)",         types:["Fairy"],              img:p("pm888.fHERO")},
-            {id:"mk2-zamazenta", name:"Zamazenta (Hero)",      types:["Fighting"],           img:p("pm889.fHERO")},
-          ]},
-        ],
-      },
-
-      // ── MEGA FINALE (Sep 5–6) ─────────────────────────────────────────────────
-      // Saturday Sep 5
-      { id:"mf-sat-super", tab:"finale", title:"Super Mega Raid", subtitle:"All day Saturday · Sep 5",
-        groups:[{ tier:"Super Mega", bosses:[
-          {id:"mf-mewtwox",        name:"Mega Mewtwo X",       types:["Psychic","Fighting"], img:p("pm150.fMEGA_X")},
-        ]}],
-      },
-      { id:"mf-sat-verdant", tab:"finale", title:"Verdant Overgrowth", subtitle:"Saturday · 10:00 AM – 11:00 AM & 2:00 PM – 3:00 PM",
-        groups:[{ tier:"Mega", bosses:[
-          {id:"mf-beedrill",       name:"Mega Beedrill",       types:["Bug","Poison"],       img:p("pm15.fMEGA")},
-          {id:"mf-victreebel",     name:"Mega Victreebel",     types:["Grass","Poison"],     img:p("pm71.fMEGA")},
-          {id:"mf-pinsir",         name:"Mega Pinsir",         types:["Bug","Flying"],       img:p("pm127.fMEGA")},
-          {id:"mf-abomasnow",      name:"Mega Abomasnow",      types:["Grass","Ice"],        img:p("pm460.fMEGA")},
-        ]}],
-      },
-      { id:"mf-sat-mindworks", tab:"finale", title:"Mindworks Canal", subtitle:"Saturday · 11:00 AM – 12:00 PM & 3:00 PM – 4:00 PM",
-        groups:[{ tier:"Mega", bosses:[
-          {id:"mf-alakazam",       name:"Mega Alakazam",       types:["Psychic"],            img:p("pm65.fMEGA")},
-          {id:"mf-slowbro",        name:"Mega Slowbro",        types:["Water","Psychic"],    img:p("pm80.fMEGA")},
-          {id:"mf-starmie",        name:"Mega Starmie",        types:["Water","Psychic"],    img:p("pm121.fMEGA")},
-          {id:"mf-medicham",       name:"Mega Medicham",       types:["Fighting","Psychic"], img:p("pm308.fMEGA")},
-        ]}],
-      },
-      { id:"mf-sat-eerie", tab:"finale", title:"Eerie Alley", subtitle:"Saturday · 12:00 PM – 1:00 PM & 4:00 PM – 5:00 PM",
-        groups:[{ tier:"Mega", bosses:[
-          {id:"mf-gengar",         name:"Mega Gengar",         types:["Ghost","Poison"],     img:p("pm94.fMEGA")},
-          {id:"mf-houndoom",       name:"Mega Houndoom",       types:["Dark","Fire"],        img:p("pm229.fMEGA")},
-          {id:"mf-banette",        name:"Mega Banette",        types:["Ghost"],              img:p("pm354.fMEGA")},
-          {id:"mf-malamar",        name:"Mega Malamar",        types:["Dark","Psychic"],     img:p("pm687.fMEGA")},
-        ]}],
-      },
-      { id:"mf-sat-circuit", tab:"finale", title:"Circuit Plaza", subtitle:"Saturday · 1:00 PM – 2:00 PM & 5:00 PM – 6:00 PM",
-        groups:[{ tier:"Mega", bosses:[
-          {id:"mf-raichu-x",       name:"Mega Raichu X",       types:["Electric","Fighting"],img:p("pm26.fMEGA_X")},
-          {id:"mf-ampharos",       name:"Mega Ampharos",       types:["Electric","Dragon"],  img:p("pm181.fMEGA")},
-          {id:"mf-manectric",      name:"Mega Manectric",      types:["Electric"],           img:p("pm310.fMEGA")},
-        ]}],
-      },
-      // Sunday Sep 6
-      { id:"mf-sun-super", tab:"finale", title:"Super Mega Raid", subtitle:"All day Sunday · Sep 6",
-        groups:[{ tier:"Super Mega", bosses:[
-          {id:"mf-mewtwoy",        name:"Mega Mewtwo Y",       types:["Psychic"],            img:p("pm150.fMEGA_Y")},
-        ]}],
-      },
-      { id:"mf-sun-iron", tab:"finale", title:"Iron Frostworks", subtitle:"Sunday · 10:00 AM – 11:00 AM & 2:00 PM – 3:00 PM",
-        groups:[{ tier:"Mega", bosses:[
-          {id:"mf-steelix",        name:"Mega Steelix",        types:["Steel","Ground"],     img:p("pm208.fMEGA")},
-          {id:"mf-skarmory",       name:"Mega Skarmory",       types:["Steel","Flying"],     img:p("pm227.fMEGA")},
-          {id:"mf-aggron",         name:"Mega Aggron",         types:["Steel"],              img:p("pm306.fMEGA")},
-          {id:"mf-glalie",         name:"Mega Glalie",         types:["Ice"],                img:p("pm362.fMEGA")},
-        ]}],
-      },
-      { id:"mf-sun-battle", tab:"finale", title:"Battle District", subtitle:"Sunday · 11:00 AM – 12:00 PM & 3:00 PM – 4:00 PM",
-        groups:[{ tier:"Mega", bosses:[
-          {id:"mf-sharpedo",       name:"Mega Sharpedo",       types:["Water","Dark"],       img:p("pm319.fMEGA")},
-          {id:"mf-camerupt",       name:"Mega Camerupt",       types:["Fire","Ground"],      img:p("pm323.fMEGA")},
-          {id:"mf-lopunny",        name:"Mega Lopunny",        types:["Normal","Fighting"],  img:p("pm428.fMEGA")},
-          {id:"mf-falinks",        name:"Mega Falinks",        types:["Fighting"],           img:p("pm870.fMEGA")},
-        ]}],
-      },
-      { id:"mf-sun-skyline", tab:"finale", title:"Skyline Roosts", subtitle:"Sunday · 12:00 PM – 1:00 PM & 4:00 PM – 5:00 PM",
-        groups:[{ tier:"Mega", bosses:[
-          {id:"mf-gyarados",       name:"Mega Gyarados",       types:["Water","Dark"],       img:p("pm130.fMEGA")},
-          {id:"mf-aerodactyl",     name:"Mega Aerodactyl",     types:["Rock","Flying"],      img:p("pm142.fMEGA")},
-          {id:"mf-dragonite",      name:"Mega Dragonite",      types:["Dragon","Flying"],    img:p("pm149.fMEGA")},
-          {id:"mf-altaria",        name:"Mega Altaria",        types:["Dragon","Fairy"],     img:p("pm334.fMEGA")},
-        ]}],
-      },
-      { id:"mf-sun-prism", tab:"finale", title:"Prism Promenade", subtitle:"Sunday · 1:00 PM – 2:00 PM & 5:00 PM – 6:00 PM",
-        groups:[{ tier:"Mega", bosses:[
-          {id:"mf-raichu-y",       name:"Mega Raichu Y",       types:["Electric","Psychic"], img:p("pm26.fMEGA_Y")},
-          {id:"mf-sableye",        name:"Mega Sableye",        types:["Dark","Ghost"],       img:p("pm302.fMEGA")},
-          {id:"mf-mawile",         name:"Mega Mawile",         types:["Steel","Fairy"],      img:p("pm303.fMEGA")},
-          {id:"mf-audino",         name:"Mega Audino",         types:["Normal","Fairy"],     img:p("pm531.fMEGA")},
-        ]}],
-      },
-
-      // ── GO WILD AREA 2026: GLOBAL (Nov 14–15) ────────────────────────────────
-      { id:"wa-sat", tab:"wildarea", title:"Saturday, November 14", subtitle:"10:00 AM – 6:00 PM local · Steel / Dragon",
+      // ── GO WILD AREA 2026: GLOBAL (Nov 14–15) ─────────────────────────────────
+      { id:"wa-sat", tab:"saturday", title:"Saturday, November 14", subtitle:"10:00 AM – 6:00 PM local · Steel / Dragon",
         groups:[
           { tier:"3-Star", bosses:[
             {id:"wa-sat-machamp", name:"Machamp (Modern Jacket)", types:["Fighting"],         img:`${LD}pm68.fWILDAREA_2026_01.icon.png`},
@@ -518,7 +57,7 @@
           ]},
         ],
       },
-      { id:"wa-sun", tab:"wildarea", title:"Sunday, November 15", subtitle:"10:00 AM – 6:00 PM local · Steel / Dragon",
+      { id:"wa-sun", tab:"sunday", title:"Sunday, November 15", subtitle:"10:00 AM – 6:00 PM local · Steel / Dragon",
         groups:[
           { tier:"3-Star", bosses:[
             {id:"wa-sun-machamp", name:"Machamp (Modern Jacket)", types:["Fighting"],         img:`${LD}pm68.fWILDAREA_2026_01.icon.png`},
@@ -536,7 +75,7 @@
     ];
 
     const ALL_BOSSES = SECTIONS.flatMap(s => s.groups.flatMap(g => g.bosses));
-    const LS_KEY = "gf26";
+    const LS_KEY = "wa26";
 
     function loadState()  { try { return JSON.parse(localStorage.getItem(LS_KEY) || "{}"); } catch { return {}; } }
     function saveState(s) { try { localStorage.setItem(LS_KEY, JSON.stringify(s)); } catch {} }
@@ -574,7 +113,7 @@
       ctx.textAlign = "center";
       ctx.fillStyle = "#F6C614";
       ctx.font = "bold 18px system-ui,sans-serif";
-      ctx.fillText("GO 2026 — Raid Wish List", W/2, 30);
+      ctx.fillText("GO Wild Area 2026 — Raid Wish List", W/2, 30);
       ctx.fillStyle = "#6e88b3";
       ctx.font = "12px system-ui,sans-serif";
       ctx.fillText(subtitle || `${bosses.length} raids I need help with!`, W/2, 52);
@@ -887,7 +426,7 @@
                   <div style={{ fontSize:10, fontWeight:700, color:"#3d4a5c", textTransform:"uppercase",
                     letterSpacing:.8, marginBottom:5 }}>Notes</div>
                   <textarea value={st.note || ""} onChange={e => onNote(e.target.value)}
-                    placeholder='e.g. "Skip today — try again in Jul 26 makeup event"'
+                    placeholder='e.g. "Missed Saturday — try again Sunday"'
                     rows={2}
                     style={{ width:"100%", background:"#0d1117", border:"1px solid #21262d",
                       borderRadius:6, color:"#c9d1d9", fontSize:12, padding:"6px 9px",
@@ -939,12 +478,8 @@
 
       const TABS = [
         { id:"all",      label:"All" },
-        { id:"leadup",   label:"📅 Lead-up" },
-        { id:"saturday", label:"⭐ Saturday" },
-        { id:"sunday",   label:"🌙 Sunday" },
-        { id:"makeup",   label:"🔁 Makeup" },
-        { id:"finale",   label:"🏆 Finale" },
-        { id:"wildarea", label:"🌿 Wild Area" },
+        { id:"saturday", label:"⚙️ Saturday" },
+        { id:"sunday",   label:"🐉 Sunday" },
       ];
 
       return (
@@ -960,10 +495,10 @@
             <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start" }}>
               <div>
                 <h1 style={{ fontSize:16, fontWeight:700, color:"#F6C614", letterSpacing:.3, marginBottom:1 }}>
-                  GO 2026 · Raid Checklist
+                  GO Wild Area 2026 · Raids
                 </h1>
                 <p style={{ fontSize:10, color:"#4a6080" }}>
-                  GO Fest · Makeup · Finale · Wild Area · tap ▼ for details
+                  Global · Nov 14–15 · tap ▼ for notes, shiny &amp; 100IV
                 </p>
               </div>
               <button onClick={() => setShowShare(true)} style={{ padding:"6px 11px", borderRadius:7,
@@ -1015,33 +550,13 @@
 
           {/* Sections */}
           <div style={{ padding:"10px 10px 48px", maxWidth:700, margin:"0 auto" }}>
-            {/* Makeup notice banner */}
-            {(activeTab==="makeup"||activeTab==="all") && (
-              <div style={{ background:"#0f1e10", border:"1px solid #1a3a1e", borderRadius:8,
-                padding:"10px 14px", marginBottom:10, fontSize:11, color:"#5a9a60", lineHeight:1.5 }}>
-                <span style={{ fontWeight:700, color:"#3fb950" }}>🔁 Jul 26 Makeup Event</span> — Scopely expanded this globally for all Trainers.
-                Same Sunday raid pool, 10 AM–7 PM local time. 12 free Raid Passes from Gyms. No Remote Raid limit.
-              </div>
-            )}
-            {/* Finale notice banner */}
-            {(activeTab==="finale"||activeTab==="all") && (
-              <div style={{ background:"#1a1000", border:"1px solid #3a2800", borderRadius:8,
-                padding:"10px 14px", marginBottom:10, fontSize:11, color:"#c8920a", lineHeight:1.5 }}>
-                <span style={{ fontWeight:700, color:"#F6C614" }}>🏆 Mega Finale — Sep 5–6, 2026</span> — Pure Mega Raids only (no 5-star).
-                Habitats rotate hourly, each appearing twice per day. Mega Mewtwo X on Saturday, Mega Mewtwo Y on Sunday.
-                Debuts: Mega Chesnaught, Mega Delphox, Mega Greninja, Mega Starmie, Mega Dragonite, Mega Skarmory, Mega Raichu X/Y &amp; more.
-                No Remote Raid limit. Extra CP boost for all Mega Evolutions.
-              </div>
-            )}
-            {/* Wild Area notice banner */}
-            {(activeTab==="wildarea"||activeTab==="all") && (
-              <div style={{ background:"#0b1a1f", border:"1px solid #16404a", borderRadius:8,
-                padding:"10px 14px", marginBottom:10, fontSize:11, color:"#5aa0b0", lineHeight:1.5 }}>
-                <span style={{ fontWeight:700, color:"#60C8E0" }}>🌿 GO Wild Area 2026: Global — Nov 14–15</span> — 10 AM–6 PM local both days.
-                Debuts: Gigantamax Duraludon (6-star Max Battles both days), Dynamax Dialga (Sat), Dynamax Palkia (Sun), Modern Jacket Machamp (3-star).
-                Up to 3 free Raid Passes/day (6 with ticket). Raid Kyurem can know Glaciate; Black &amp; White Kyurem raids give Fusion Energy.
-              </div>
-            )}
+            {/* Event notice banner */}
+            <div style={{ background:"#0b1a1f", border:"1px solid #16404a", borderRadius:8,
+              padding:"10px 14px", marginBottom:10, fontSize:11, color:"#5aa0b0", lineHeight:1.5 }}>
+              <span style={{ fontWeight:700, color:"#60C8E0" }}>🌿 10 AM–6 PM local, both days</span> — Steel &amp; Dragon focus.
+              Debuts: Gigantamax Duraludon (6-star Max Battles both days), Dynamax Dialga (Sat), Dynamax Palkia (Sun), Modern Jacket Machamp (3-star).
+              Up to 3 free Raid Passes/day (6 with ticket). Raid Kyurem can know Glaciate; Black &amp; White Kyurem raids give Fusion Energy.
+            </div>
 
             {visibleSections.map(section => {
               const secBosses = section.groups.flatMap(g => g.bosses);
